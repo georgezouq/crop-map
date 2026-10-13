@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#bfe6ff" />
+    <meta name="description" content="What's growing here? An interactive map of what California grows." />
+    <title>What's growing here? California crop map</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B1%3C/text%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <div id="app">
+      <div id="map" aria-label="Map of California crops"></div>
+      <div id="boot" aria-hidden="true"><i class="boot-state"></i><i class="boot-pill"></i><i class="boot-controls"></i></div>
+      <div class="vignette" aria-hidden="true"></div>
+      <div id="legend-slot"></div>
+      <div id="search-slot"></div>
+      <div id="popup-root"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

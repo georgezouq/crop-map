@@ -2,7 +2,8 @@ import { readdir, rm } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 
-const DEFAULT_TERRAIN_URL = 'https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png';
+const DEFAULT_TERRAIN_URL =
+  'https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png';
 const BOOT_FETCHES = ['/data/crops.json', '/data/regions.json', '/icons/manifest.json'];
 
 const excludePmtilesFromDist = (): Plugin => {
@@ -16,7 +17,9 @@ const excludePmtilesFromDist = (): Plugin => {
     async closeBundle() {
       const files = await readdir(dataDir).catch(() => [] as string[]);
       await Promise.all(
-        files.filter((f) => f.endsWith('.pmtiles')).map((f) => rm(resolve(dataDir, f), { force: true })),
+        files
+          .filter((f) => f.endsWith('.pmtiles'))
+          .map((f) => rm(resolve(dataDir, f), { force: true })),
       );
     },
   };
@@ -25,7 +28,8 @@ const excludePmtilesFromDist = (): Plugin => {
 /** Opens connections to the tile and terrain hosts, and starts the boot JSON, while the JS bundle is still loading. */
 const earlyHints = (env: Record<string, string>): Plugin => ({
   name: 'early-connection-hints',
-  transformIndexHtml() {
+  transformIndexHtml(_html, context) {
+    if (!context.filename.endsWith('california.html')) return [];
     const urls = [
       env.VITE_BASEMAP_URL,
       env.VITE_FIELDS_URL,
@@ -33,9 +37,17 @@ const earlyHints = (env: Record<string, string>): Plugin => ({
       env.VITE_FIELDS_LOW_URL,
       env.VITE_TERRAIN_URL ?? DEFAULT_TERRAIN_URL,
     ];
-    const origins = new Set(urls.filter((u) => u && /^https?:\/\//.test(u)).map((u) => new URL(u).origin));
+    const origins = new Set(
+      urls
+        .filter((u) => u && /^https?:\/\//.test(u))
+        .map((u) => new URL(u).origin),
+    );
     return [
-      ...[...origins].map((href) => ({ tag: 'link', attrs: { rel: 'preconnect', href, crossorigin: '' }, injectTo: 'head' as const })),
+      ...[...origins].map((href) => ({
+        tag: 'link',
+        attrs: { rel: 'preconnect', href, crossorigin: '' },
+        injectTo: 'head' as const,
+      })),
       ...BOOT_FETCHES.map((href) => ({
         tag: 'link',
         attrs: { rel: 'preload', href, as: 'fetch', crossorigin: '' },
@@ -46,6 +58,19 @@ const earlyHints = (env: Record<string, string>): Plugin => ({
 });
 
 export default defineConfig(({ mode }) => ({
-  build: { target: 'es2022', chunkSizeWarningLimit: 1500 },
-  plugins: [excludePmtilesFromDist(), earlyHints(loadEnv(mode, process.cwd(), 'VITE_'))],
+  server: { host: '127.0.0.1', proxy: { '/api': 'http://127.0.0.1:8787' } },
+  build: {
+    target: 'es2022',
+    chunkSizeWarningLimit: 1500,
+    rollupOptions: {
+      input: {
+        atlas: resolve(process.cwd(), 'index.html'),
+        california: resolve(process.cwd(), 'california.html'),
+      },
+    },
+  },
+  plugins: [
+    excludePmtilesFromDist(),
+    earlyHints(loadEnv(mode, process.cwd(), 'VITE_')),
+  ],
 }));
