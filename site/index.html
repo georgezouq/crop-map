@@ -37,7 +37,7 @@
             <p class="eyebrow">WHAT'S GROWING HERE?</p>
             <h1>从全国，<br />看到一片农田。</h1>
             <p class="intro">
-              选择地区与年份，点击地图上的任意位置，查看历年的作物变化。
+              选择地区与年份，点击农田选中整块边界，查看面积与种植历史。
             </p>
             <label for="place">探索地区</label
             ><select id="place" disabled></select
@@ -77,7 +77,9 @@
             <details class="data-notes">
               <summary>了解数据边界</summary>
               <p>
-                CDL 是卫星识别的作物 /
+                整块选择使用 USDA CSB 2015–2022 边界，覆盖本土 48
+                州，是推算的作物边界，并非产权地块。切换作物年份不会改变这套边界。CDL
+                是卫星识别的作物 /
                 土地覆盖栅格，不代表农场边界、农户申报或官方种植面积统计。
               </p>
               <p>
@@ -132,6 +134,20 @@
             <button id="close-history" aria-label="关闭历史记录">关闭</button>
           </div>
           <p id="coordinates"></p>
+          <div id="field-card" aria-label="地块信息">
+            <strong id="field-status" role="status" aria-live="polite"></strong>
+            <p id="field-description"></p>
+            <div class="history-actions">
+              <button id="focus-field" hidden>查看整块</button>
+              <button id="export-field" hidden>导出边界</button>
+              <button id="retry-field" hidden>重试边界</button>
+            </div>
+            <details id="field-history" hidden>
+              <summary>地块主作物 · 2015–2022</summary>
+              <div id="field-rows"></div>
+            </details>
+          </div>
+          <h3 class="point-heading">点击位置的逐年样本</h3>
           <div id="history-summary" role="status" aria-live="polite"></div>
           <div class="history-actions">
             <button id="export-history" disabled>导出 CSV</button

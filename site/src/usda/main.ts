@@ -6,6 +6,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import '../styles/tokens.css';
 import './style.css';
 import { places } from './places';
+import { fieldSelection } from './fields';
 import type { Catalog, Crop, History, Region } from './types';
 
 const el = <T extends HTMLElement>(id: string) =>
@@ -75,6 +76,7 @@ const map = new maplibregl.Map({
     ],
   },
 });
+const fields = fieldSelection(map, setYear);
 const styleReady = new Promise<void>((resolve) =>
   map.once('style.load', () => resolve()),
 );
@@ -102,7 +104,7 @@ map.on('idle', () => {
   status.textContent =
     place.value === 'AK'
       ? '阿拉斯加暂无 CDL 数据'
-      : '点击地图，查看这里的种植历史';
+      : '点击地图选中整块农田，查看种植历史';
   status.classList.remove('error');
 });
 status.addEventListener('click', () => {
@@ -176,6 +178,7 @@ function updateYears() {
       ? '阿拉斯加不在 USDA CDL 覆盖范围内。请选择本土州或夏威夷。'
       : '该年份仅覆盖部分州；地图空白代表无数据，不代表没有农业。';
   renderHistory();
+  fields.renderYear(year);
 }
 function renderCrops() {
   if (!currentClasses().some((c) => c.code === selectedCode))
@@ -264,13 +267,12 @@ function navigatePlace() {
   map.resize();
   const p = places.find((p) => p[0] === place.value)!;
   const next: Region = p[0] === 'HI' ? 'hawaii' : 'conus';
+  closeHistory();
   if (next !== region) {
     region = next;
     selectedCode = null;
     renderCrops();
-    closeHistory();
   }
-  if (p[0] === 'AK') closeHistory();
   const duration = matchMedia('(prefers-reduced-motion: reduce)').matches
     ? 0
     : 900;
@@ -286,6 +288,7 @@ function navigatePlace() {
   updateLayer();
 }
 function closeHistory() {
+  fields.clear();
   requestVersion++;
   controller?.abort();
   panel.hidden = true;
@@ -368,6 +371,15 @@ async function inspectPoint(lon: number, lat: number) {
   el<HTMLButtonElement>('export-history').disabled = true;
   el<HTMLButtonElement>('retry-history').hidden = true;
   saveUrl();
+  void fields.load(
+    new URLSearchParams({
+      region,
+      lon: String(selectedPoint[0]),
+      lat: String(selectedPoint[1]),
+    }),
+    controller.signal,
+    () => year,
+  );
   try {
     const response = await fetch(
       `/api/history?${new URLSearchParams({ region, lon: String(selectedPoint[0]), lat: String(selectedPoint[1]) })}`,
@@ -404,6 +416,18 @@ el('reset-map').onclick = () => {
   if (catalog) navigatePlace();
 };
 el('close-history').onclick = closeHistory;
+el('retry-field').onclick = () => {
+  if (selectedPoint && controller)
+    void fields.load(
+      new URLSearchParams({
+        region,
+        lon: String(selectedPoint[0]),
+        lat: String(selectedPoint[1]),
+      }),
+      controller.signal,
+      () => year,
+    );
+};
 el('retry-history').onclick = () => {
   if (selectedPoint) void inspectPoint(...selectedPoint);
 };

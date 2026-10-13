@@ -36,3 +36,26 @@ export interface History {
   source: string;
   catalogImportedAt: string;
 }
+
+export interface FieldProperties {
+  id: string;
+  acres: number;
+  hectares: number;
+  county: string;
+  stateFips: string;
+  window: { start: number; end: number };
+  rows: { year: number; code: number | null; name: string }[];
+  source: string;
+}
+export interface FieldResult {
+  status: 'ok' | 'nodata' | 'unsupported';
+  feature:
+    | import('geojson').Feature<
+        import('geojson').Polygon | import('geojson').MultiPolygon,
+        FieldProperties
+      >
+    | null;
+  fetchedAt?: string;
+  source: string;
+  window: { start: number; end: number };
+}

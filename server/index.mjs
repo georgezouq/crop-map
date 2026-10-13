@@ -1,3 +1,9 @@
+import {
+  fieldUrl,
+  fieldResult,
+  FIELD_SOURCE,
+  FIELD_WINDOW,
+} from './fields.mjs';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -23,7 +29,10 @@ const publicCatalog = {
   regions: Object.fromEntries(
     Object.entries(catalog.regions).map(([key, value]) => [
       key,
-      { ...value, years: value.years.map(({ footprints, ...entry }) => entry) },
+      {
+        ...value,
+        years: value.years.map(({ footprints, ...entry }) => entry),
+      },
     ]),
   ),
 };
@@ -110,6 +119,39 @@ export const server = createServer(async (req, res) => {
         'X-Data-Fetched-At': value.fetchedAt,
       });
       return res.end(Buffer.from(value.body, 'base64'));
+    }
+    if (url.pathname === '/api/field') {
+      let target;
+      try {
+        target = fieldUrl(
+          url.searchParams.get('region'),
+          number(url.searchParams, 'lon'),
+          number(url.searchParams, 'lat'),
+        );
+      } catch (error) {
+        return json(res, 400, { error: error.message });
+      }
+      if (!target)
+        return json(res, 200, {
+          status: 'unsupported',
+          feature: null,
+          window: FIELD_WINDOW,
+          source: FIELD_SOURCE,
+        });
+      const value = await cache.get(target, () =>
+        limited(async () => ({
+          feature: fieldResult(
+            await fetchJSON(target),
+            catalog.regions.conus.classes,
+          ),
+        })),
+      );
+      return json(res, 200, {
+        ...value,
+        status: value.feature ? 'ok' : 'nodata',
+        window: FIELD_WINDOW,
+        source: FIELD_SOURCE,
+      });
     }
     if (url.pathname === '/api/history') {
       let region, lon, lat, years;

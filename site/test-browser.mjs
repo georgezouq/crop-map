@@ -50,6 +50,35 @@ try {
       '26 年有分类记录',
     ),
   );
+  await page.waitForSelector('#field-card[data-field-id="191522004396459"]');
+  assert.ok(
+    (await page.locator('#field-status').innerText()).includes('15.56 公顷'),
+  );
+  assert.ok(
+    (await page.locator('#field-description').innerText()).includes(
+      '2025 不在边界记录期内',
+    ),
+  );
+  const fieldDownload = page.waitForEvent('download');
+  await page.getByRole('button', { name: '导出边界', exact: true }).click();
+  await (await fieldDownload).saveAs(output + '/browser-field.geojson');
+  const field = JSON.parse(
+    await readFile(output + '/browser-field.geojson', 'utf8'),
+  );
+  assert.equal(field.geometry.type, 'Polygon');
+  assert.ok(field.geometry.coordinates[0].length > 20);
+  assert.equal(field.properties.rows.length, 8);
+  await page.locator('#field-history summary').click();
+  await page
+    .getByRole('button', { name: '2021 · Soybeans', exact: true })
+    .click();
+  assert.equal(await page.locator('#year-select').inputValue(), '2021');
+  assert.ok(
+    (await page.locator('#field-description').innerText()).includes(
+      '2021 地块主作物：Soybeans',
+    ),
+  );
+  await page.locator('#field-history summary').click();
   await page.getByLabel('作物年份', { exact: true }).selectOption('2024');
   await page.waitForFunction(
     () =>
@@ -134,7 +163,9 @@ try {
   });
   const canvas = page.locator('.maplibregl-canvas');
   const box = await canvas.boundingBox();
-  await canvas.click({ position: { x: box.width / 2, y: box.height * 0.4 } });
+  await canvas.click({
+    position: { x: box.width / 2, y: box.height * 0.4 },
+  });
   await page.waitForFunction(
     () => document.querySelectorAll('.history-row').length === 29,
     null,
@@ -157,6 +188,8 @@ try {
     desktop: '1440×960',
     mobile: '390×844',
     checks: [
+      'whole-field selection and GeoJSON export',
+      'field area and 8-year majority crops separate from point history',
       'national map',
       '29-year point history',
       'year switching',

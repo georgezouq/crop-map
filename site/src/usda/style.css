@@ -659,3 +659,72 @@ input[type='range'] {
     scroll-behavior: auto !important;
   }
 }
+
+/* Keep both field metadata and point samples reachable on short screens. */
+.history-panel {
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.history-panel > * {
+  flex-shrink: 0;
+}
+#history-rows {
+  overflow: visible;
+}
+#field-card {
+  border: 1px solid #c8dcd5;
+  background: #f1f7f3;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 11px;
+}
+#field-status {
+  color: #176773;
+  line-height: 1.7;
+}
+#field-description {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+  font-size: 10px;
+  margin: 5px 0 0;
+  color: #64745e;
+}
+#field-card .history-actions {
+  margin-top: 7px;
+  flex-wrap: wrap;
+}
+#field-card .history-actions:has(button:not([hidden])) {
+  display: flex;
+}
+#field-card .history-actions:not(:has(button:not([hidden]))) {
+  display: none;
+}
+#field-history summary {
+  cursor: pointer;
+  padding-top: 10px;
+}
+.field-row {
+  display: block;
+  width: 100%;
+  border: 0;
+  text-align: left;
+  background: transparent;
+  padding: 7px 2px;
+  font-size: 11px;
+}
+.field-row[aria-pressed='true'] {
+  color: #087e8b;
+  font-weight: 700;
+}
+.point-heading {
+  font-size: 12px;
+  margin: 14px 0 6px;
+}
+@media (max-width: 1100px) {
+  .history-panel {
+    top: auto;
+    height: min(260px, 43%);
+    width: calc(100% - 20px);
+  }
+}
