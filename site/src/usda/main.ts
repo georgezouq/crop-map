@@ -30,6 +30,10 @@ const early = el<HTMLInputElement>('early-years'),
   panel = el('history-panel');
 applyLanguage();
 const params = new URLSearchParams(location.search);
+const basemap = el<HTMLSelectElement>('basemap');
+const showCrops = el<HTMLInputElement>('show-crops');
+basemap.value = params.get('basemap') === 'imagery' ? 'imagery' : 'map';
+showCrops.checked = params.get('overlay') !== '0';
 let catalog: Catalog;
 let region: Region = params.get('region') === 'hawaii' ? 'hawaii' : 'conus';
 let year = Number(params.get('year')) || 2025;
@@ -38,6 +42,7 @@ let selectedPoint: [number, number] | null = null;
 let history: History | null = null;
 let controller: AbortController | null = null;
 let marker: maplibregl.Marker | null = null;
+let basemapError = false;
 let tileError = false,
   ready = false,
   requestVersion = 0;
@@ -107,12 +112,25 @@ map.on('error', (event) => {
     tileError = true;
     text(status, 'tileError');
     status.classList.add('error');
-  } else if (sourceId === 'base' || sourceId === 'labels')
-    text(status, 'baseError');
+  } else if (
+    sourceId === 'base' ||
+    sourceId === 'labels' ||
+    sourceId === 'imagery'
+  ) {
+    basemapError = true;
+    if (!tileError) text(status, 'baseError');
+  }
 });
 map.on('idle', () => {
   if (!catalog || !ready || tileError) return;
-  text(status, place.value === 'AK' ? 'alaskaUnavailable' : 'mapReady');
+  text(
+    status,
+    basemapError
+      ? 'baseError'
+      : place.value === 'AK'
+        ? 'alaskaUnavailable'
+        : 'mapReady',
+  );
   status.classList.remove('error');
 });
 status.addEventListener('click', () => {
@@ -133,6 +151,8 @@ function saveUrl() {
     year: String(year),
     place: place.value,
   });
+  if (basemap.value === 'imagery') p.set('basemap', 'imagery');
+  if (!showCrops.checked) p.set('overlay', '0');
   if (selectedCode !== null) p.set('crop', String(selectedCode));
   if (early.checked) p.set('early', '1');
   if (selectedPoint) {
@@ -244,7 +264,11 @@ function updateLayer() {
   ];
   if (map.getSource('cdl')) {
     (map.getSource('cdl') as RasterTileSource).setTiles(tiles);
-    map.setLayoutProperty('cdl', 'visibility', 'visible');
+    map.setLayoutProperty(
+      'cdl',
+      'visibility',
+      showCrops.checked ? 'visible' : 'none',
+    );
   } else {
     map.addSource('cdl', {
       type: 'raster',
@@ -259,6 +283,7 @@ function updateLayer() {
         id: 'cdl',
         type: 'raster',
         source: 'cdl',
+        layout: { visibility: showCrops.checked ? 'visible' : 'none' },
         paint: {
           'raster-opacity': Number(el<HTMLInputElement>('opacity').value) / 100,
           'raster-resampling': 'nearest',
@@ -338,12 +363,15 @@ function renderHistory() {
             ? t('noData')
             : cropName(row.name);
       const note = document.createElement('small');
-      note.textContent =
-        row.coverage === 'partial'
-          ? t('partial')
-          : row.status === 'ok'
-            ? t('classCode', { code: row.code ?? '' })
-            : '—';
+      note.textContent = [
+        row.status === 'ok' ? t('classCode', { code: row.code ?? '' }) : '—',
+        row.status === 'ok' && row.resolution
+          ? t('sampleResolution', { resolution: row.resolution })
+          : '',
+        row.coverage === 'partial' ? t('partial') : '',
+      ]
+        .filter(Boolean)
+        .join(' · ');
       text.append(note);
       button.append(date, dot, text);
       button.onclick = () => {
@@ -446,6 +474,47 @@ el('retry-field').onclick = () => {
 el('retry-history').onclick = () => {
   if (selectedPoint) void inspectPoint(...selectedPoint);
 };
+function updateBasemap() {
+  basemapError = false;
+  const imagery = basemap.value === 'imagery';
+  if (imagery && !map.getSource('imagery')) {
+    map.addSource('imagery', {
+      type: 'raster',
+      tiles: [
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      ],
+      tileSize: 256,
+      attribution:
+        'Imagery © Esri, Vantor, Earthstar Geographics, and the GIS User Community',
+    });
+    map.addLayer(
+      { id: 'imagery', type: 'raster', source: 'imagery' },
+      'labels',
+    );
+    // Keep classified pixels above reference imagery when both are enabled.
+    if (map.getLayer('cdl')) map.moveLayer('cdl', 'labels');
+  }
+  map.setLayoutProperty('base', 'visibility', imagery ? 'none' : 'visible');
+  map.setLayoutProperty('labels', 'visibility', imagery ? 'none' : 'visible');
+  if (map.getLayer('imagery'))
+    map.setLayoutProperty(
+      'imagery',
+      'visibility',
+      imagery ? 'visible' : 'none',
+    );
+  el('imagery-note').hidden = !imagery;
+  saveUrl();
+}
+basemap.onchange = updateBasemap;
+showCrops.onchange = () => {
+  if (map.getLayer('cdl'))
+    map.setLayoutProperty(
+      'cdl',
+      'visibility',
+      showCrops.checked && place.value !== 'AK' ? 'visible' : 'none',
+    );
+  saveUrl();
+};
 el<HTMLInputElement>('opacity').oninput = (event) => {
   const value = Number((event.target as HTMLInputElement).value);
   el('opacity-value').textContent = `${value}%`;
@@ -540,6 +609,8 @@ async function boot() {
     const begin = () => {
       ready = true;
       navigatePlace();
+      updateBasemap();
+      basemap.disabled = showCrops.disabled = false;
       if (params.has('lon') && params.has('lat')) {
         const lon = Number(params.get('lon')),
           lat = Number(params.get('lat'));

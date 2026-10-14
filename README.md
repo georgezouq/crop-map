@@ -74,6 +74,8 @@ If a click has no matching field, coordinate history remains available. No cover
 
 The map displays currently available historical releases, which may include revisions. It does not reconstruct what was publicly known on a past date and is not, by itself, a point-in-time dataset for investment backtesting.
 
+Use the **Imagery** basemap and switch off **Crop overlay** to compare a selected point with reference imagery, including roads and field edges. Imagery dates may differ from the selected crop year; this is a visual aid, not ground verification. Annual rows show the source class code and sampling resolution. A crop-classified pixel can include mixed land cover or classification errors, especially at field edges. No matched CSB boundary means the app has only a point classification; it proves neither the presence nor absence of crops.
+
 Native CDL resolution in the contiguous U.S. is 30 m for 2008–2023 and 10 m from 2024; some earlier datasets use 56 m. Resolution, classification changes, and positional differences can affect comparisons. The service-wide `Acreage` and `Count` fields are not used as annual acreage statistics.
 
 ## How data loading works
@@ -171,6 +173,7 @@ npx playwright install chromium --only-shell
 npm run test:browser
 node test-fields-browser.mjs
 node test-i18n-browser.mjs
+node test-accuracy-browser.mjs
 ```
 
 An installed Chrome can be used with `PLAYWRIGHT_CHANNEL=chrome` before a browser-test command. Tests launch an isolated browser profile.
@@ -209,6 +212,7 @@ The original pipeline uses Python, GDAL, tippecanoe, and pmtiles (`make setup`, 
 - **Crop layers:** [USDA NASS Cropland Data Layer](https://www.nass.usda.gov/Research_and_Science/Cropland/SARS1a.php) and [official raster downloads](https://data.nass.usda.gov/Research_and_Science/Cropland/Release/). Connected services: [CDL_WM](https://pdi.scinet.usda.gov/image/rest/services/CDL_WM/ImageServer) and [CDL_WM_Hawaii](https://pdi.scinet.usda.gov/image/rest/services/CDL_WM_Hawaii/ImageServer).
 - **Field boundaries:** [USDA NASS Crop Sequence Boundaries](https://www.nass.usda.gov/Research_and_Science/Crop-Sequence-Boundaries/) and the connected [2015–2022 hosted layer](https://pdi.scinet.usda.gov/hosting/rest/services/Hosted/Crop_Sequence_Boundary_2022/FeatureServer/0).
 - **Basemap:** [Esri World Light Gray Canvas](https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer), with Esri, HERE, Garmin, OpenStreetMap, and GIS user community attribution. External basemap content remains subject to its provider's terms.
+- **Reference imagery:** [Esri World Imagery](https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer), attributed to Esri, Vantor, Earthstar Geographics, and the GIS User Community. It is independent of USDA crop-year selection.
 - **Legacy California fields:** California Department of Water Resources Statewide Crop Mapping 2023 / Land IQ.
 - **Inherited visual assets:** Microsoft Fluent Emoji (MIT), Figtree (SIL Open Font License), and the original OSM / Protomaps basemap (ODbL), under their respective licenses.
 

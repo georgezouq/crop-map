@@ -66,7 +66,9 @@ export function tileUrl(catalog, region, year, z, x, y, crop) {
     mosaicRule: JSON.stringify(mosaicRule(entry)),
     renderingRule: JSON.stringify(
       crop === null
-        ? { rasterFunction: region === 'hawaii' ? 'HI_croptypes' : 'croptypes' }
+        ? {
+            rasterFunction: region === 'hawaii' ? 'HI_croptypes' : 'croptypes',
+          }
         : {
             rasterFunction: 'Colormap',
             rasterFunctionArguments: {
@@ -142,6 +144,12 @@ export function pointInRings(x, y, rings) {
 export function identifyUrl(sample) {
   const url = new URL(sample);
   url.pathname = url.pathname.replace(/getSamples$/, 'identify');
+  // Unlike getSamples, identify defaults to a coarse display resolution.
+  // Request below the smallest native pixel size to avoid a pyramid-level NoData check.
+  url.searchParams.set(
+    'pixelSize',
+    JSON.stringify({ x: 1, y: 1, spatialReference: { wkid: 3857 } }),
+  );
   url.searchParams.set('returnCatalogItems', 'false');
   url.searchParams.set('returnPixelValues', 'true');
   return url.toString();

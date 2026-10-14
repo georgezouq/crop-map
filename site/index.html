@@ -167,9 +167,32 @@
         >
           Connecting to the map…
         </div>
-        <button class="reset-map" id="reset-map" data-i18n="resetMap">
-          Region overview
-        </button>
+        <div class="map-tools">
+          <div class="map-tools-row">
+            <label for="basemap" class="sr-only" data-i18n="basemap"
+              >Basemap</label
+            >
+            <select id="basemap" disabled>
+              <option value="map" data-i18n="basemapMap">Map</option>
+              <option value="imagery" data-i18n="basemapImagery">
+                Imagery
+              </option>
+            </select>
+            <label class="crop-toggle"
+              ><input id="show-crops" type="checkbox" checked disabled /><span
+                data-i18n="showCrops"
+                >Crop overlay</span
+              ></label
+            >
+            <button class="reset-map" id="reset-map" data-i18n="resetMap">
+              Region overview
+            </button>
+          </div>
+          <p id="imagery-note" data-i18n="imageryNote" hidden>
+            Reference imagery may be from a different date than the selected
+            crop year.
+          </p>
+        </div>
         <div id="coverage-warning" role="status" hidden></div>
         <section
           class="history-panel"
@@ -221,7 +244,7 @@
             </details>
           </div>
           <h3 class="point-heading" data-i18n="pointHeading">
-            Annual samples at this point
+            Annual raster classifications at this point
           </h3>
           <div id="history-summary" role="status" aria-live="polite"></div>
           <div class="history-actions">
@@ -232,8 +255,9 @@
             </button>
           </div>
           <p class="history-note" data-i18n="historyNote">
-            Samples at one coordinate · not field acreage. Select a record to
-            change the map year.
+            Pixel classifications are not ground verification. Roads and field
+            edges may contain mixed pixels or classification errors. Select a
+            record to change the year.
           </p>
           <div id="history-rows"></div>
         </section>

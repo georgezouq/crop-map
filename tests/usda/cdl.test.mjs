@@ -7,6 +7,7 @@ import {
   tileBounds,
   tileUrl,
   sampleUrl,
+  identifyUrl,
   sampleResult,
   mapLimit,
   pointInRings,
@@ -72,6 +73,20 @@ test('map and history lock the same year rather than use the default mosaic', ()
   assert.throws(() => tileUrl(catalog, 'conus', 2026, 4, 3, 6, null));
   assert.throws(() => tileUrl(catalog, 'conus', 2025, 4, 3, 6, 999));
 });
+test('NoData fallback uses the finest raster level and preserves the exact point and year', () => {
+  const sample = new URL(
+    sampleUrl(catalog, 'conus', 2025, -122.29931, 48.95943),
+  );
+  const identify = new URL(identifyUrl(sample));
+  assert.ok(identify.pathname.endsWith('/identify'));
+  for (const key of ['geometry', 'mosaicRule'])
+    assert.equal(identify.searchParams.get(key), sample.searchParams.get(key));
+  assert.deepEqual(JSON.parse(identify.searchParams.get('pixelSize')), {
+    x: 1,
+    y: 1,
+    spatialReference: { wkid: 3857 },
+  });
+});
 test('crop filter remaps other categories to NoData, with nearest-neighbor rendering', () => {
   const url = new URL(tileUrl(catalog, 'conus', 2025, 4, 3, 6, 1));
   const rule = JSON.parse(url.searchParams.get('renderingRule'));
@@ -113,7 +128,9 @@ test('sample decoding distinguishes valid crops, NoData, malformed responses, an
   const classes = catalog.regions.conus.classes;
   assert.equal(
     sampleResult(
-      { samples: [{ value: '1', attributes: { Year: 2025 }, resolution: 10 }] },
+      {
+        samples: [{ value: '1', attributes: { Year: 2025 }, resolution: 10 }],
+      },
       2025,
       classes,
     ).name,

@@ -225,9 +225,9 @@
     "zh-CN": "地块主作物 · 2015–2022"
   },
   "pointHeading": {
-    "en": "Annual samples at this point",
-    "es": "Muestras anuales en este punto",
-    "zh-CN": "点击位置的逐年样本"
+    "en": "Annual raster classifications at this point",
+    "es": "Clasificaciones ráster anuales en este punto",
+    "zh-CN": "该点的逐年栅格分类"
   },
   "exportCSV": {
     "en": "Export CSV",
@@ -240,9 +240,9 @@
     "zh-CN": "重试查询"
   },
   "historyNote": {
-    "en": "Samples at one coordinate · not field acreage. Select a record to change the map year.",
-    "es": "Muestras de una coordenada, no la superficie del campo. Elige un registro para cambiar el año del mapa.",
-    "zh-CN": "同一坐标的分类样本 · 非地块面积。点击记录可切换到对应年份。"
+    "en": "Pixel classifications are not ground verification. Roads and field edges may contain mixed pixels or classification errors. Select a record to change the year.",
+    "es": "Las clasificaciones de píxeles no son verificaciones sobre el terreno. Las carreteras y los bordes pueden contener píxeles mixtos o errores. Selecciona un registro para cambiar el año.",
+    "zh-CN": "像元分类未经实地核验；道路及田边可能存在混合像元或分类误差。点击记录切换年份。"
   },
   "timeline": {
     "en": "Historical timeline",
@@ -280,9 +280,9 @@
     "zh-CN": "探索美国作物分布，选中完整农田并逐年回溯 USDA 作物历史。"
   },
   "tileError": {
-    "en": "Crop layer failed to load · click to retry",
-    "es": "No se pudo cargar la capa · haz clic para reintentar",
-    "zh-CN": "作物图层加载失败 · 点击重试"
+    "en": "Crop map incomplete · click to retry; point queries are separate",
+    "es": "Mapa de cultivos incompleto · reintentar; consultas del punto independientes",
+    "zh-CN": "作物地图显示不完整 · 点击重试；点位查询独立进行"
   },
   "baseError": {
     "en": "Basemap unavailable; crop queries still work",
@@ -425,9 +425,9 @@
     "zh-CN": "此处未匹配到地块边界"
   },
   "fieldFallback": {
-    "en": "Point history is still available. Try clicking inside a nearby field.",
-    "es": "El historial del punto sigue disponible. Prueba dentro de un campo cercano.",
-    "zh-CN": "保留点击位置的历史样本。可尝试点击附近农田内部。"
+    "en": "Only raster classifications are available here; no CSB field boundary confirms this selection. This does not establish whether crops are present.",
+    "es": "Aquí solo hay clasificaciones ráster; ningún límite CSB confirma la selección. Esto no permite determinar si hay cultivos.",
+    "zh-CN": "此处仅有栅格分类，未匹配到 CSB 地块边界；不能据此确认实际种植情况。"
   },
   "fieldError": {
     "en": "Field boundaries are temporarily unavailable",
@@ -468,5 +468,35 @@
     "en": "Selected location",
     "es": "Ubicación seleccionada",
     "zh-CN": "所选位置"
+  },
+  "basemap": {
+    "en": "Basemap",
+    "es": "Mapa base",
+    "zh-CN": "底图"
+  },
+  "basemapMap": {
+    "en": "Map",
+    "es": "Mapa",
+    "zh-CN": "地图"
+  },
+  "basemapImagery": {
+    "en": "Imagery",
+    "es": "Imágenes",
+    "zh-CN": "卫星影像"
+  },
+  "showCrops": {
+    "en": "Crop overlay",
+    "es": "Capa de cultivos",
+    "zh-CN": "作物图层"
+  },
+  "imageryNote": {
+    "en": "Reference imagery may be from a different date than the selected crop year.",
+    "es": "Las imágenes de referencia pueden ser de una fecha distinta al año del cultivo.",
+    "zh-CN": "参考影像拍摄日期可能与所选作物年份不同。"
+  },
+  "sampleResolution": {
+    "en": "{resolution} m pixel",
+    "es": "Píxel de {resolution} m",
+    "zh-CN": "{resolution} 米像元"
   }
 }
