@@ -1,0 +1,472 @@
+{
+  "title": {
+    "en": "US Crop Atlas · Explore U.S. agriculture",
+    "es": "US Crop Atlas · Explora la agricultura de EE. UU.",
+    "zh-CN": "美国作物地图 · US Crop Atlas"
+  },
+  "subtitle": {
+    "en": "U.S. agriculture, mapped",
+    "es": "La agricultura de EE. UU.",
+    "zh-CN": "美国作物地图"
+  },
+  "tagline": {
+    "en": "Every field has a growing history.",
+    "es": "Cada campo tiene una historia.",
+    "zh-CN": "每一片土地，都有种植的历史。"
+  },
+  "source": {
+    "en": "USDA NASS data ↗",
+    "es": "Datos USDA NASS ↗",
+    "zh-CN": "USDA NASS 数据 ↗"
+  },
+  "language": {
+    "en": "Language",
+    "es": "Idioma",
+    "zh-CN": "语言"
+  },
+  "filters": {
+    "en": "Map filters",
+    "es": "Filtros del mapa",
+    "zh-CN": "地图筛选"
+  },
+  "explore": {
+    "en": "Explore crops",
+    "es": "Explorar cultivos",
+    "zh-CN": "探索作物分布"
+  },
+  "filterNotes": {
+    "en": "Filters & data notes",
+    "es": "Filtros y notas",
+    "zh-CN": "筛选与数据说明"
+  },
+  "eyebrow": {
+    "en": "WHAT'S GROWING HERE?",
+    "es": "¿QUÉ SE CULTIVA AQUÍ?",
+    "zh-CN": "这里种了什么？"
+  },
+  "headline": {
+    "en": "From a nation,\nto a single field.",
+    "es": "De todo un país\na un solo campo.",
+    "zh-CN": "从全国，\n看到一片农田。"
+  },
+  "intro": {
+    "en": "Choose a place and year. Click a field to see its boundary, area and crop history.",
+    "es": "Elige una región y un año. Haz clic en un campo para ver sus límites, superficie e historial de cultivos.",
+    "zh-CN": "选择地区与年份，点击农田选中整块边界，查看面积与种植历史。"
+  },
+  "place": {
+    "en": "Explore a region",
+    "es": "Explorar una región",
+    "zh-CN": "探索地区"
+  },
+  "crop": {
+    "en": "Crop / land cover",
+    "es": "Cultivo / cobertura del suelo",
+    "zh-CN": "作物 / 土地覆盖"
+  },
+  "allCrops": {
+    "en": "All crops & land cover",
+    "es": "Todos los cultivos y coberturas",
+    "zh-CN": "全部作物与土地覆盖"
+  },
+  "favorites": {
+    "en": "Common crops",
+    "es": "Cultivos frecuentes",
+    "zh-CN": "常见作物"
+  },
+  "opacity": {
+    "en": "Layer opacity",
+    "es": "Opacidad de la capa",
+    "zh-CN": "图层透明度"
+  },
+  "startHere": {
+    "en": "Start exploring",
+    "es": "Empieza a explorar",
+    "zh-CN": "从这里开始"
+  },
+  "realPlaces": {
+    "en": "Real places",
+    "es": "Lugares reales",
+    "zh-CN": "真实地点"
+  },
+  "cornBelt": {
+    "en": "Corn Belt",
+    "es": "Cinturón del Maíz",
+    "zh-CN": "玉米带"
+  },
+  "iowa": {
+    "en": "Iowa",
+    "es": "Iowa",
+    "zh-CN": "Iowa · 爱荷华"
+  },
+  "centralValley": {
+    "en": "Central Valley",
+    "es": "Valle Central",
+    "zh-CN": "中央谷地"
+  },
+  "california": {
+    "en": "California",
+    "es": "California",
+    "zh-CN": "California · 加州"
+  },
+  "hawaiianIslands": {
+    "en": "Hawaiian Islands",
+    "es": "Islas de Hawái",
+    "zh-CN": "夏威夷群岛"
+  },
+  "hawaiiSince": {
+    "en": "Hawaii · since 2023",
+    "es": "Hawái · desde 2023",
+    "zh-CN": "夏威夷 · 2023 起"
+  },
+  "dataNotes": {
+    "en": "Understand the data",
+    "es": "Acerca de los datos",
+    "zh-CN": "了解数据边界"
+  },
+  "noteBoundary": {
+    "en": "Whole-field selection uses USDA CSB 2015–2022 across the contiguous 48 states. These are inferred crop boundaries, not ownership parcels, and stay fixed when you change the crop year. CDL is satellite-classified land cover, not farm declarations or official acreage statistics.",
+    "es": "La selección de campos usa límites USDA CSB 2015–2022 de los 48 estados contiguos. Son límites de cultivos estimados, no de propiedad, y no cambian al elegir otro año. CDL clasifica la cobertura del suelo por satélite; no son declaraciones agrícolas ni estadísticas oficiales de superficie.",
+    "zh-CN": "整块选择使用 USDA CSB 2015–2022 边界，覆盖本土 48 州，是推算的作物边界，并非产权地块。切换作物年份不会改变这套边界。CDL 是卫星识别的土地覆盖栅格，不代表农户申报或官方种植面积统计。"
+  },
+  "noteCoverage": {
+    "en": "Contiguous 48 states: full coverage since 2008; selected states only in 1997–2007. Hawaii: since 2023. Alaska: not covered by this source.",
+    "es": "48 estados contiguos: cobertura completa desde 2008; solo algunos estados en 1997–2007. Hawái: desde 2023. Alaska: sin cobertura en esta fuente.",
+    "zh-CN": "本土 48 州：2008 年起完整覆盖；1997–2007 年仅部分州。夏威夷：2023 年起。阿拉斯加：此数据源无覆盖。"
+  },
+  "noteResolution": {
+    "en": "Native resolution is 10 m from 2024 and 30 m for 2008–2023 in the contiguous U.S. Consider resolution and classification changes when comparing years.",
+    "es": "La resolución nativa es de 10 m desde 2024 y de 30 m en 2008–2023 en los estados contiguos. Ten en cuenta los cambios de resolución y clasificación al comparar años.",
+    "zh-CN": "本土 2024 年起原始分辨率为 10 米，2008–2023 年为 30 米。跨年比较需留意分辨率与分类方法变化。"
+  },
+  "noteVintages": {
+    "en": "These are currently available historical releases, not snapshots of what was known at the time. They do not, by themselves, prevent look-ahead bias in backtests.",
+    "es": "Se muestran las versiones históricas disponibles hoy, no lo que se conocía en cada fecha. Por sí solas, no evitan el sesgo de anticipación en pruebas retrospectivas.",
+    "zh-CN": "展示当前可获得的历史版本，不是“当时已知”的数据快照，不能直接用于避免前视偏差的交易回测。"
+  },
+  "noteCache": {
+    "en": "Official data is loaded on demand and cached locally for up to 7 days. Unvisited tiles require a connection; the cache is not a complete national download.",
+    "es": "Los datos oficiales se cargan bajo demanda y se guardan en caché hasta 7 días. Las teselas no visitadas requieren conexión; la caché no es una descarga nacional completa.",
+    "zh-CN": "按需读取官方数据，本地缓存最长 7 天。未访问的图块需要联网；缓存不等于下载完整全国数据。"
+  },
+  "downloadSource": {
+    "en": "Download source data ↗",
+    "es": "Descargar datos originales ↗",
+    "zh-CN": "原始数据下载 ↗"
+  },
+  "catalogLoading": {
+    "en": "Loading the annual catalog…",
+    "es": "Cargando el catálogo anual…",
+    "zh-CN": "正在读取年度目录…"
+  },
+  "mapLabel": {
+    "en": "Interactive U.S. crop map",
+    "es": "Mapa interactivo de cultivos de EE. UU.",
+    "zh-CN": "美国作物分布互动地图"
+  },
+  "mapLoading": {
+    "en": "Connecting to the map…",
+    "es": "Conectando con el mapa…",
+    "zh-CN": "正在连接地图…"
+  },
+  "resetMap": {
+    "en": "Region overview",
+    "es": "Vista de la región",
+    "zh-CN": "地区全景"
+  },
+  "historyLabel": {
+    "en": "Location history",
+    "es": "Historial del lugar",
+    "zh-CN": "地点历史记录"
+  },
+  "historyEyebrow": {
+    "en": "A PLACE THROUGH TIME",
+    "es": "UN LUGAR A TRAVÉS DEL TIEMPO",
+    "zh-CN": "土地的时间记录"
+  },
+  "historyTitle": {
+    "en": "This land through time",
+    "es": "La historia de este campo",
+    "zh-CN": "这片土地的历史"
+  },
+  "close": {
+    "en": "Close",
+    "es": "Cerrar",
+    "zh-CN": "关闭"
+  },
+  "closeHistory": {
+    "en": "Close history",
+    "es": "Cerrar historial",
+    "zh-CN": "关闭历史记录"
+  },
+  "fieldLabel": {
+    "en": "Field information",
+    "es": "Información del campo",
+    "zh-CN": "地块信息"
+  },
+  "focusField": {
+    "en": "Show whole field",
+    "es": "Ver campo completo",
+    "zh-CN": "查看整块"
+  },
+  "exportField": {
+    "en": "Export boundary",
+    "es": "Exportar límites",
+    "zh-CN": "导出边界"
+  },
+  "retryField": {
+    "en": "Retry boundary",
+    "es": "Reintentar límites",
+    "zh-CN": "重试边界"
+  },
+  "fieldHistory": {
+    "en": "Field majority crops · 2015–2022",
+    "es": "Cultivos predominantes · 2015–2022",
+    "zh-CN": "地块主作物 · 2015–2022"
+  },
+  "pointHeading": {
+    "en": "Annual samples at this point",
+    "es": "Muestras anuales en este punto",
+    "zh-CN": "点击位置的逐年样本"
+  },
+  "exportCSV": {
+    "en": "Export CSV",
+    "es": "Exportar CSV",
+    "zh-CN": "导出 CSV"
+  },
+  "retryHistory": {
+    "en": "Retry history",
+    "es": "Reintentar historial",
+    "zh-CN": "重试查询"
+  },
+  "historyNote": {
+    "en": "Samples at one coordinate · not field acreage. Select a record to change the map year.",
+    "es": "Muestras de una coordenada, no la superficie del campo. Elige un registro para cambiar el año del mapa.",
+    "zh-CN": "同一坐标的分类样本 · 非地块面积。点击记录可切换到对应年份。"
+  },
+  "timeline": {
+    "en": "Historical timeline",
+    "es": "Línea de tiempo",
+    "zh-CN": "历史时间轴"
+  },
+  "year": {
+    "en": "Crop year",
+    "es": "Año del cultivo",
+    "zh-CN": "作物年份"
+  },
+  "previousYear": {
+    "en": "Previous year",
+    "es": "Año anterior",
+    "zh-CN": "上一年"
+  },
+  "nextYear": {
+    "en": "Next year",
+    "es": "Año siguiente",
+    "zh-CN": "下一年"
+  },
+  "earlyYears": {
+    "en": "Before 2008 (partial coverage)",
+    "es": "Antes de 2008 (cobertura parcial)",
+    "zh-CN": "显示 2008 年以前（部分覆盖）"
+  },
+  "yearSlider": {
+    "en": "Select crop year",
+    "es": "Seleccionar año del cultivo",
+    "zh-CN": "拖动选择作物年份"
+  },
+  "metaDescription": {
+    "en": "Explore U.S. crop maps, select fields and trace USDA crop history across years.",
+    "es": "Explora los cultivos de EE. UU., selecciona campos y consulta su historial con datos del USDA.",
+    "zh-CN": "探索美国作物分布，选中完整农田并逐年回溯 USDA 作物历史。"
+  },
+  "tileError": {
+    "en": "Crop layer failed to load · click to retry",
+    "es": "No se pudo cargar la capa · haz clic para reintentar",
+    "zh-CN": "作物图层加载失败 · 点击重试"
+  },
+  "baseError": {
+    "en": "Basemap unavailable; crop queries still work",
+    "es": "Mapa base no disponible; las consultas siguen funcionando",
+    "zh-CN": "底图连接暂不可用，作物数据仍可查询"
+  },
+  "alaskaUnavailable": {
+    "en": "No CDL data for Alaska",
+    "es": "Sin datos CDL para Alaska",
+    "zh-CN": "阿拉斯加暂无 CDL 数据"
+  },
+  "mapReady": {
+    "en": "Click a field to select it and explore its history",
+    "es": "Haz clic en un campo para seleccionarlo y ver su historial",
+    "zh-CN": "点击地图选中整块农田，查看种植历史"
+  },
+  "nativeResolution": {
+    "en": "{year} · {resolution} m native raster",
+    "es": "{year} · ráster nativo de {resolution} m",
+    "zh-CN": "{year} · {resolution} m 原始栅格"
+  },
+  "hawaiiCoverage": {
+    "en": "Hawaii · HCDL",
+    "es": "Hawái · HCDL",
+    "zh-CN": "夏威夷 · HCDL"
+  },
+  "conusCoverage": {
+    "en": "Contiguous 48 states · CDL",
+    "es": "48 estados contiguos · CDL",
+    "zh-CN": "美国本土 48 州 · CDL"
+  },
+  "partialCoverage": {
+    "en": "Selected states · CDL",
+    "es": "Algunos estados · CDL",
+    "zh-CN": "部分州覆盖 · CDL"
+  },
+  "alaskaWarning": {
+    "en": "Alaska is outside USDA CDL coverage. Choose a contiguous state or Hawaii.",
+    "es": "Alaska está fuera de la cobertura CDL. Elige un estado contiguo o Hawái.",
+    "zh-CN": "阿拉斯加不在 USDA CDL 覆盖范围内。请选择本土州或夏威夷。"
+  },
+  "earlyWarning": {
+    "en": "This year covers selected states only. Blank areas mean no data, not no agriculture.",
+    "es": "Este año solo cubre algunos estados. Las zonas vacías indican falta de datos, no ausencia de agricultura.",
+    "zh-CN": "该年份仅覆盖部分州；地图空白代表无数据，不代表没有农业。"
+  },
+  "loadingYear": {
+    "en": "Loading the {year} crop layer…",
+    "es": "Cargando la capa de cultivos de {year}…",
+    "zh-CN": "正在加载 {year} 年作物图层…"
+  },
+  "historyCount": {
+    "en": "{count} years with classification data",
+    "es": "{count} años con datos de clasificación",
+    "zh-CN": "{count} 年有分类记录"
+  },
+  "historyErrors": {
+    "en": " · {errors} years failed to load",
+    "es": " · {errors} años no se pudieron cargar",
+    "zh-CN": " · {errors} 年请求失败"
+  },
+  "sampleError": {
+    "en": "Query failed · retry available",
+    "es": "Consulta fallida · puedes reintentar",
+    "zh-CN": "查询失败 · 可重试"
+  },
+  "noData": {
+    "en": "No data here",
+    "es": "Sin datos aquí",
+    "zh-CN": "此处无数据"
+  },
+  "partial": {
+    "en": "Partial coverage",
+    "es": "Cobertura parcial",
+    "zh-CN": "部分州覆盖"
+  },
+  "classCode": {
+    "en": "Class {code}",
+    "es": "Clase {code}",
+    "zh-CN": "分类 {code}"
+  },
+  "historyLoading": {
+    "en": "Reading annual samples at this coordinate…",
+    "es": "Consultando muestras anuales en esta coordenada…",
+    "zh-CN": "正在逐年读取该坐标的分类样本…"
+  },
+  "historyError": {
+    "en": "History is temporarily unavailable. Please retry.",
+    "es": "El historial no está disponible temporalmente. Vuelve a intentarlo.",
+    "zh-CN": "历史数据暂时无法读取，请重试。"
+  },
+  "catalogDate": {
+    "en": "Catalog synced: {date} · USDA NASS",
+    "es": "Catálogo actualizado: {date} · USDA NASS",
+    "zh-CN": "目录同步：{date} · USDA NASS"
+  },
+  "apiError": {
+    "en": "Data service unavailable · click to retry",
+    "es": "Servicio no disponible · haz clic para reintentar",
+    "zh-CN": "无法连接数据服务 · 点击重试"
+  },
+  "startAPI": {
+    "en": "Start the local data service: npm run api",
+    "es": "Inicia el servicio local: npm run api",
+    "zh-CN": "请先启动本地数据服务：npm run api"
+  },
+  "fieldWindow": {
+    "en": "Boundary period: {start}–{end} (inferred crop boundary)",
+    "es": "Período del límite: {start}–{end} (límite de cultivo estimado)",
+    "zh-CN": "边界期：{start}–{end}（推算作物边界）"
+  },
+  "fieldYear": {
+    "en": "{year} majority crop: {crop}",
+    "es": "Cultivo predominante de {year}: {crop}",
+    "zh-CN": "{year} 地块主作物：{crop}"
+  },
+  "fieldOutside": {
+    "en": "{year} is outside the boundary record period; point samples appear below.",
+    "es": "{year} queda fuera del período del límite; debajo se muestran las muestras del punto.",
+    "zh-CN": "{year} 不在边界记录期内；下方为单点样本。"
+  },
+  "fieldLoading": {
+    "en": "Looking up the whole-field boundary…",
+    "es": "Buscando los límites del campo…",
+    "zh-CN": "正在查找整块边界…"
+  },
+  "fieldSelected": {
+    "en": "Whole field selected · {hectares} ha / {acres} acres",
+    "es": "Campo completo · {hectares} ha / {acres} acres",
+    "zh-CN": "已选中整块 · {hectares} 公顷 / {acres} 英亩"
+  },
+  "fieldUnsupported": {
+    "en": "No CSB boundaries for this region",
+    "es": "Sin límites CSB para esta región",
+    "zh-CN": "该地区暂无 CSB 地块边界"
+  },
+  "fieldMissing": {
+    "en": "No field boundary found here",
+    "es": "No se encontró un campo en este punto",
+    "zh-CN": "此处未匹配到地块边界"
+  },
+  "fieldFallback": {
+    "en": "Point history is still available. Try clicking inside a nearby field.",
+    "es": "El historial del punto sigue disponible. Prueba dentro de un campo cercano.",
+    "zh-CN": "保留点击位置的历史样本。可尝试点击附近农田内部。"
+  },
+  "fieldError": {
+    "en": "Field boundaries are temporarily unavailable",
+    "es": "Límites del campo no disponibles temporalmente",
+    "zh-CN": "地块边界暂时无法读取"
+  },
+  "fieldRetryNote": {
+    "en": "Point history works independently. Please retry the boundary.",
+    "es": "El historial del punto es independiente. Vuelve a consultar el límite.",
+    "zh-CN": "坐标历史可独立查询，请重试边界。"
+  },
+  "conusPlace": {
+    "en": "Contiguous United States",
+    "es": "Estados Unidos contiguos",
+    "zh-CN": "美国本土 · Lower 48"
+  },
+  "alaskaPlace": {
+    "en": "Alaska (no CDL)",
+    "es": "Alaska (sin CDL)",
+    "zh-CN": "Alaska · 阿拉斯加（无 CDL）"
+  },
+  "zoomIn": {
+    "en": "Zoom in",
+    "es": "Acercar",
+    "zh-CN": "放大"
+  },
+  "zoomOut": {
+    "en": "Zoom out",
+    "es": "Alejar",
+    "zh-CN": "缩小"
+  },
+  "attribution": {
+    "en": "Toggle attribution",
+    "es": "Mostrar atribución",
+    "zh-CN": "显示来源署名"
+  },
+  "mapMarker": {
+    "en": "Selected location",
+    "es": "Ubicación seleccionada",
+    "zh-CN": "所选位置"
+  }
+}

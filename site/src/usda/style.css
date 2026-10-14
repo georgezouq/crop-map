@@ -728,3 +728,66 @@ input[type='range'] {
     width: calc(100% - 20px);
   }
 }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.language-control {
+  flex-shrink: 0;
+}
+.language-control select {
+  width: 120px;
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+.topbar .source-link {
+  margin-left: auto;
+}
+h1 {
+  white-space: pre-line;
+}
+.destinations b,
+#filters > summary b {
+  font-weight: inherit;
+}
+html:not([lang='zh-CN']) .brand small {
+  letter-spacing: 0.3px;
+}
+html:not([lang='zh-CN']) .top-caption {
+  letter-spacing: 0;
+}
+.history-actions {
+  flex-wrap: wrap;
+}
+.history-row span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+#map-status {
+  max-width: calc(100% - 95px);
+}
+@media (max-width: 720px) {
+  .topbar .source-link {
+    display: none;
+  }
+  .language-control {
+    margin-left: auto;
+  }
+  .language-control select {
+    width: 106px;
+    padding: 7px 8px;
+    font-size: 12px;
+  }
+  html:not([lang='zh-CN']) .early-years {
+    max-width: 145px;
+  }
+}

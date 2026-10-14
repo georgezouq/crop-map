@@ -5,6 +5,16 @@ import type { RasterTileSource } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import '../styles/tokens.css';
 import './style.css';
+import {
+  t,
+  text,
+  clearText,
+  language,
+  setLanguage,
+  applyLanguage,
+  cropName,
+  placeName,
+} from './i18n';
 import { places } from './places';
 import { fieldSelection } from './fields';
 import type { Catalog, Crop, History, Region } from './types';
@@ -18,6 +28,7 @@ const yearSelect = el<HTMLSelectElement>('year-select'),
 const early = el<HTMLInputElement>('early-years'),
   status = el('map-status'),
   panel = el('history-panel');
+applyLanguage();
 const params = new URLSearchParams(location.search);
 let catalog: Catalog;
 let region: Region = params.get('region') === 'hawaii' ? 'hawaii' : 'conus';
@@ -94,17 +105,14 @@ map.on('error', (event) => {
   const sourceId = (event as typeof event & { sourceId?: string }).sourceId;
   if (sourceId === 'cdl') {
     tileError = true;
-    status.textContent = '作物图层加载失败 · 点击重试';
+    text(status, 'tileError');
     status.classList.add('error');
   } else if (sourceId === 'base' || sourceId === 'labels')
-    status.textContent = '底图连接暂不可用，作物数据仍可查询';
+    text(status, 'baseError');
 });
 map.on('idle', () => {
   if (!catalog || !ready || tileError) return;
-  status.textContent =
-    place.value === 'AK'
-      ? '阿拉斯加暂无 CDL 数据'
-      : '点击地图选中整块农田，查看种植历史';
+  text(status, place.value === 'AK' ? 'alaskaUnavailable' : 'mapReady');
   status.classList.remove('error');
 });
 status.addEventListener('click', () => {
@@ -121,6 +129,7 @@ function availableYears(): number[] {
 function saveUrl() {
   const p = new URLSearchParams({
     region,
+    lang: language,
     year: String(year),
     place: place.value,
   });
@@ -164,19 +173,21 @@ function updateYears() {
       entry.datasets.map((d) => d.match(/(\d+)m_/)?.[1]).filter(Boolean),
     ),
   ].join(' / ');
-  el('year-badge').textContent = `${year} · ${resolution || '—'} m 原始栅格`;
-  el('coverage-badge').textContent =
+  text(el('year-badge'), 'nativeResolution', {
+    year,
+    resolution: resolution || '—',
+  });
+  text(
+    el('coverage-badge'),
     region === 'hawaii'
-      ? '夏威夷 · HCDL'
+      ? 'hawaiiCoverage'
       : year >= 2008
-        ? '美国本土 48 州 · CDL'
-        : '部分州覆盖 · CDL';
+        ? 'conusCoverage'
+        : 'partialCoverage',
+  );
   const warning = el('coverage-warning');
   warning.hidden = place.value !== 'AK' && year >= 2008;
-  warning.textContent =
-    place.value === 'AK'
-      ? '阿拉斯加不在 USDA CDL 覆盖范围内。请选择本土州或夏威夷。'
-      : '该年份仅覆盖部分州；地图空白代表无数据，不代表没有农业。';
+  text(warning, place.value === 'AK' ? 'alaskaWarning' : 'earlyWarning');
   renderHistory();
   fields.renderYear(year);
 }
@@ -184,9 +195,9 @@ function renderCrops() {
   if (!currentClasses().some((c) => c.code === selectedCode))
     selectedCode = null;
   crop.replaceChildren(
-    new Option('全部作物与土地覆盖', ''),
+    new Option(t('allCrops'), ''),
     ...currentClasses().map(
-      (c) => new Option(`${c.name} · ${c.code}`, String(c.code)),
+      (c) => new Option(`${cropName(c.name)} · ${c.code}`, String(c.code)),
     ),
   );
   crop.value = selectedCode === null ? '' : String(selectedCode);
@@ -205,7 +216,8 @@ function renderCrops() {
       b.setAttribute('aria-pressed', String(code === selectedCode));
       const dot = document.createElement('i');
       dot.style.backgroundColor = c.color;
-      b.append(dot, c.name);
+      b.append(dot, cropName(c.name));
+      b.title = c.name;
       b.onclick = () => {
         selectedCode = selectedCode === code ? null : code;
         renderCrops();
@@ -219,12 +231,12 @@ function updateLayer() {
   if (!catalog || !ready) return;
   tileError = false;
   status.classList.remove('error');
-  status.textContent = `正在加载 ${year} 年作物图层…`;
+  text(status, 'loadingYear', { year });
   updateYears();
   saveUrl();
   if (place.value === 'AK') {
     if (map.getLayer('cdl')) map.setLayoutProperty('cdl', 'visibility', 'none');
-    status.textContent = '阿拉斯加暂无 CDL 数据';
+    text(status, 'alaskaUnavailable');
     return;
   }
   const tiles = [
@@ -302,8 +314,10 @@ function renderHistory() {
   if (!history) return;
   const errors = history.rows.filter((r) => r.status === 'error').length,
     count = history.rows.filter((r) => r.status === 'ok').length;
+  clearText(el('history-summary'));
   el('history-summary').textContent =
-    `${count} 年有分类记录${errors ? ` · ${errors} 年请求失败` : ''}`;
+    t('historyCount', { count }) +
+    (errors ? t('historyErrors', { errors }) : '');
   el<HTMLButtonElement>('retry-history').hidden = errors === 0;
   el<HTMLButtonElement>('export-history').disabled = false;
   el('history-rows').replaceChildren(
@@ -319,16 +333,16 @@ function renderHistory() {
       const text = document.createElement('span');
       text.textContent =
         row.status === 'error'
-          ? '查询失败 · 可重试'
+          ? t('sampleError')
           : row.status === 'nodata'
-            ? '此处无数据'
-            : row.name;
+            ? t('noData')
+            : cropName(row.name);
       const note = document.createElement('small');
       note.textContent =
         row.coverage === 'partial'
-          ? '部分州覆盖'
+          ? t('partial')
           : row.status === 'ok'
-            ? `分类 ${row.code}`
+            ? t('classCode', { code: row.code ?? '' })
             : '—';
       text.append(note);
       button.append(date, dot, text);
@@ -345,7 +359,7 @@ async function inspectPoint(lon: number, lat: number) {
   controller = new AbortController();
   const version = ++requestVersion;
   if (place.value === 'AK') {
-    status.textContent = '阿拉斯加暂无 CDL 数据';
+    text(status, 'alaskaUnavailable');
     return;
   }
   selectedPoint = [Number(lon.toFixed(6)), Number(lat.toFixed(6))];
@@ -364,9 +378,10 @@ async function inspectPoint(lon: number, lat: number) {
   marker = new maplibregl.Marker({ color: '#546247' })
     .setLngLat(selectedPoint)
     .addTo(map);
+  marker.getElement().setAttribute('aria-label', t('mapMarker'));
   el('coordinates').textContent =
     `${Math.abs(lat).toFixed(5)}° ${lat < 0 ? 'S' : 'N'}  ·  ${Math.abs(lon).toFixed(5)}° ${lon < 0 ? 'W' : 'E'}`;
-  el('history-summary').textContent = '正在逐年读取该坐标的分类样本…';
+  text(el('history-summary'), 'historyLoading');
   el('history-rows').replaceChildren();
   el<HTMLButtonElement>('export-history').disabled = true;
   el<HTMLButtonElement>('retry-history').hidden = true;
@@ -392,7 +407,7 @@ async function inspectPoint(lon: number, lat: number) {
     renderHistory();
   } catch {
     if (version !== requestVersion) return;
-    el('history-summary').textContent = '历史数据暂时无法读取，请重试。';
+    text(el('history-summary'), 'historyError');
     el<HTMLButtonElement>('retry-history').hidden = false;
   }
 }
@@ -503,7 +518,9 @@ async function boot() {
     const response = await fetch('/api/catalog');
     if (!response.ok) throw new Error('API unavailable');
     catalog = await response.json();
-    place.replaceChildren(...places.map((p) => new Option(p[1], p[0])));
+    place.replaceChildren(
+      ...places.map((p) => new Option(placeName(p[0], p[1]), p[0])),
+    );
     place.value = places.some((p) => p[0] === params.get('place'))
       ? params.get('place')!
       : region === 'hawaii'
@@ -516,8 +533,9 @@ async function boot() {
     [place, crop, yearSelect, slider].forEach((input) => {
       input.disabled = false;
     });
-    el('catalog-note').textContent =
-      `目录同步：${new Date(catalog.importedAt).toLocaleDateString('zh-CN')} · USDA NASS`;
+    text(el('catalog-note'), 'catalogDate', {
+      date: new Date(catalog.importedAt).toLocaleDateString(language),
+    });
     el<HTMLAnchorElement>('download-source').href = catalog.releaseUrl;
     const begin = () => {
       ready = true;
@@ -537,15 +555,32 @@ async function boot() {
       }
     };
     await styleReady;
+    applyLanguage();
     begin();
   } catch {
-    status.textContent = '无法连接数据服务 · 点击重试';
+    text(status, 'apiError');
     status.classList.add('error');
-    el('catalog-note').textContent = '请先启动本地数据服务：npm run api';
+    text(el('catalog-note'), 'startAPI');
     status.onclick = () => {
       status.onclick = null;
       void boot();
     };
   }
 }
+el<HTMLSelectElement>('language').onchange = (event) => {
+  setLanguage((event.target as HTMLSelectElement).value);
+  if (catalog) {
+    const selected = place.value;
+    place.replaceChildren(
+      ...places.map((p) => new Option(placeName(p[0], p[1]), p[0])),
+    );
+    place.value = selected;
+    renderCrops();
+    updateYears();
+    text(el('catalog-note'), 'catalogDate', {
+      date: new Date(catalog.importedAt).toLocaleDateString(language),
+    });
+  }
+  saveUrl();
+};
 void boot();

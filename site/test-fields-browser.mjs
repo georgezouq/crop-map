@@ -13,6 +13,7 @@ const browser = await chromium.launch({
   channel: process.env.PLAYWRIGHT_CHANNEL || undefined,
 });
 const page = await browser.newPage({
+  locale: 'zh-CN',
   viewport: { width: 1440, height: 960 },
   reducedMotion: 'reduce',
 });

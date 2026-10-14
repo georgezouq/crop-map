@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -9,9 +9,9 @@
     <meta name="theme-color" content="#f7f8f2" />
     <meta
       name="description"
-      content="探索美国作物分布，逐年回溯 USDA CDL，导出同地点种植历史。"
+      content="Explore U.S. crop maps, select fields and trace USDA crop history across years."
     />
-    <title>美国作物地图 · US Crop Atlas</title>
+    <title>US Crop Atlas · Explore U.S. agriculture</title>
     <link rel="icon" href="/icons/corn.webp" />
   </head>
   <body>
@@ -19,158 +19,256 @@
       <header class="topbar">
         <a class="brand" href="/"
           ><img src="/icons/corn.webp" alt="" /><span
-            >US Crop Atlas<small>美国作物地图</small></span
+            >US Crop Atlas<small data-i18n="subtitle"
+              >U.S. agriculture, mapped</small
+            ></span
           ></a
-        ><span class="top-caption">每一片土地，都有种植的历史。</span
+        ><span class="top-caption" data-i18n="tagline"
+          >Every field has a growing history.</span
         ><a
           class="source-link"
           href="https://www.nass.usda.gov/Research_and_Science/Cropland/SARS1a.php"
           target="_blank"
           rel="noreferrer"
-          >USDA NASS 数据 ↗</a
+          data-i18n="source"
+          >USDA NASS data ↗</a
         >
+        <div class="language-control">
+          <label for="language" class="sr-only" data-i18n="language"
+            >Language</label
+          ><select id="language">
+            <option value="en" lang="en">English</option>
+            <option value="es" lang="es">Español</option>
+            <option value="zh-CN" lang="zh-CN">简体中文</option>
+          </select>
+        </div>
       </header>
-      <aside class="sidebar" aria-label="地图筛选">
+      <aside class="sidebar" aria-label="Map filters" data-i18n-aria="filters">
         <details id="filters" open>
-          <summary>探索作物分布 <span>筛选与数据说明</span></summary>
+          <summary>
+            <b data-i18n="explore">Explore crops</b>
+            <span data-i18n="filterNotes">Filters &amp; data notes</span>
+          </summary>
           <div class="filter-body">
-            <p class="eyebrow">WHAT'S GROWING HERE?</p>
-            <h1>从全国，<br />看到一片农田。</h1>
-            <p class="intro">
-              选择地区与年份，点击农田选中整块边界，查看面积与种植历史。
+            <p class="eyebrow" data-i18n="eyebrow">WHAT'S GROWING HERE?</p>
+            <h1 data-i18n="headline">From a nation, to a single field.</h1>
+            <p class="intro" data-i18n="intro">
+              Choose a place and year. Click a field to see its boundary, area
+              and crop history.
             </p>
-            <label for="place">探索地区</label
+            <label for="place" data-i18n="place">Explore a region</label
             ><select id="place" disabled></select
-            ><label for="crop">作物 / 土地覆盖</label
+            ><label for="crop" data-i18n="crop">Crop / land cover</label
             ><select id="crop" disabled>
-              <option value="">全部类别</option>
+              <option value="" data-i18n="allCrops">
+                All crops & land cover
+              </option>
             </select>
             <div
               class="quick-crops"
               id="quick-crops"
-              aria-label="常见作物"
+              aria-label="Common crops"
+              data-i18n-aria="favorites"
             ></div>
             <label for="opacity"
-              >图层透明度 <output id="opacity-value">80%</output></label
+              ><span data-i18n="opacity">Layer opacity</span>
+              <output id="opacity-value">80%</output></label
             ><input id="opacity" type="range" min="0" max="100" value="80" />
             <div class="section-heading">
-              <h2>从这里开始</h2>
-              <span>真实地点</span>
+              <h2 data-i18n="startHere">Start exploring</h2>
+              <span data-i18n="realPlaces">Real places</span>
             </div>
             <div class="destinations">
               <button data-place="IA" data-lon="-93.6" data-lat="42.1">
                 <img src="/icons/corn.webp" alt="" /><span
-                  >玉米带<small>Iowa · 爱荷华</small></span
+                  ><b data-i18n="cornBelt">Corn Belt</b
+                  ><small data-i18n="iowa">Iowa</small></span
                 ><span>↗</span>
               </button>
               <button data-place="CA" data-lon="-120.1" data-lat="36.6">
                 <img src="/icons/almond.svg" alt="" /><span
-                  >中央谷地<small>California · 加州</small></span
+                  ><b data-i18n="centralValley">Central Valley</b
+                  ><small data-i18n="california">California</small></span
                 ><span>↗</span>
               </button>
               <button data-place="HI" data-lon="-156.4" data-lat="20.8">
                 <img src="/icons/seedling.webp" alt="" /><span
-                  >夏威夷群岛<small>Hawaii · 2023 起</small></span
+                  ><b data-i18n="hawaiianIslands">Hawaiian Islands</b
+                  ><small data-i18n="hawaiiSince"
+                    >Hawaii · since 2023</small
+                  ></span
                 ><span>↗</span>
               </button>
             </div>
             <details class="data-notes">
-              <summary>了解数据边界</summary>
-              <p>
-                整块选择使用 USDA CSB 2015–2022 边界，覆盖本土 48
-                州，是推算的作物边界，并非产权地块。切换作物年份不会改变这套边界。CDL
-                是卫星识别的作物 /
-                土地覆盖栅格，不代表农场边界、农户申报或官方种植面积统计。
+              <summary data-i18n="dataNotes">Understand the data</summary>
+              <p data-i18n="noteBoundary">
+                Whole-field selection uses USDA CSB 2015–2022 across the
+                contiguous 48 states. These are inferred crop boundaries, not
+                ownership parcels, and stay fixed when you change the crop year.
+                CDL is satellite-classified land cover, not farm declarations or
+                official acreage statistics.
               </p>
-              <p>
-                本土 48 州：2008 年起完整覆盖；1997–2007
-                年仅部分州。夏威夷：2023 年起。阿拉斯加：此数据源无覆盖。
+              <p data-i18n="noteCoverage">
+                Contiguous 48 states: full coverage since 2008; selected states
+                only in 1997–2007. Hawaii: since 2023. Alaska: not covered by
+                this source.
               </p>
-              <p>
-                本土 2024 年起原始分辨率为 10 米，2008–2023 年为 30
-                米。跨年比较需留意分辨率与分类方法变化。
+              <p data-i18n="noteResolution">
+                Native resolution is 10 m from 2024 and 30 m for 2008–2023 in
+                the contiguous U.S. Consider resolution and classification
+                changes when comparing years.
               </p>
-              <p>
-                展示当前可获得的历史版本，不是“当时已知”的数据快照，不能直接用于避免前视偏差的交易回测。
+              <p data-i18n="noteVintages">
+                These are currently available historical releases, not snapshots
+                of what was known at the time. They do not, by themselves,
+                prevent look-ahead bias in backtests.
               </p>
-              <p>
-                按需读取官方数据，本地缓存最长 7
-                天。未访问的图块需要联网；缓存不等于下载完整全国数据。
+              <p data-i18n="noteCache">
+                Official data is loaded on demand and cached locally for up to 7
+                days. Unvisited tiles require a connection; the cache is not a
+                complete national download.
               </p>
               <a
                 id="download-source"
                 href="https://data.nass.usda.gov/Research_and_Science/Cropland/Release/"
                 target="_blank"
                 rel="noreferrer"
-                >原始数据下载 ↗</a
+                data-i18n="downloadSource"
+                >Download source data ↗</a
               >
             </details>
-            <div class="catalog-note" id="catalog-note">正在读取年度目录…</div>
+            <div
+              class="catalog-note"
+              id="catalog-note"
+              data-i18n="catalogLoading"
+            >
+              Loading the annual catalog…
+            </div>
           </div>
         </details>
       </aside>
       <main class="map-stage">
-        <div id="map" role="region" aria-label="美国作物分布互动地图"></div>
+        <div
+          id="map"
+          role="region"
+          aria-label="Interactive U.S. crop map"
+          data-i18n-aria="mapLabel"
+        ></div>
         <div class="map-badges">
           <span class="map-badge" id="coverage-badge">USDA CDL</span
           ><span class="map-badge" id="year-badge">—</span>
         </div>
-        <div id="map-status" role="status" aria-live="polite">
-          正在连接地图…
+        <div
+          id="map-status"
+          role="status"
+          aria-live="polite"
+          data-i18n="mapLoading"
+        >
+          Connecting to the map…
         </div>
-        <button class="reset-map" id="reset-map">地区全景</button>
+        <button class="reset-map" id="reset-map" data-i18n="resetMap">
+          Region overview
+        </button>
         <div id="coverage-warning" role="status" hidden></div>
         <section
           class="history-panel"
           id="history-panel"
-          aria-label="地点历史记录"
+          aria-label="Location history"
+          data-i18n-aria="historyLabel"
           hidden
         >
           <div class="history-header">
             <div>
-              <span class="eyebrow">A PLACE THROUGH TIME</span>
-              <h2>这片土地的历史</h2>
+              <span class="eyebrow" data-i18n="historyEyebrow"
+                >A PLACE THROUGH TIME</span
+              >
+              <h2 data-i18n="historyTitle">This land through time</h2>
             </div>
-            <button id="close-history" aria-label="关闭历史记录">关闭</button>
+            <button
+              id="close-history"
+              aria-label="Close history"
+              data-i18n-aria="closeHistory"
+              data-i18n="close"
+            >
+              Close
+            </button>
           </div>
           <p id="coordinates"></p>
-          <div id="field-card" aria-label="地块信息">
+          <div
+            id="field-card"
+            aria-label="Field information"
+            data-i18n-aria="fieldLabel"
+          >
             <strong id="field-status" role="status" aria-live="polite"></strong>
             <p id="field-description"></p>
             <div class="history-actions">
-              <button id="focus-field" hidden>查看整块</button>
-              <button id="export-field" hidden>导出边界</button>
-              <button id="retry-field" hidden>重试边界</button>
+              <button id="focus-field" hidden data-i18n="focusField">
+                Show whole field
+              </button>
+              <button id="export-field" hidden data-i18n="exportField">
+                Export boundary
+              </button>
+              <button id="retry-field" hidden data-i18n="retryField">
+                Retry boundary
+              </button>
             </div>
             <details id="field-history" hidden>
-              <summary>地块主作物 · 2015–2022</summary>
+              <summary data-i18n="fieldHistory">
+                Field majority crops · 2015–2022
+              </summary>
               <div id="field-rows"></div>
             </details>
           </div>
-          <h3 class="point-heading">点击位置的逐年样本</h3>
+          <h3 class="point-heading" data-i18n="pointHeading">
+            Annual samples at this point
+          </h3>
           <div id="history-summary" role="status" aria-live="polite"></div>
           <div class="history-actions">
-            <button id="export-history" disabled>导出 CSV</button
-            ><button id="retry-history" hidden>重试查询</button>
+            <button id="export-history" disabled data-i18n="exportCSV">
+              Export CSV</button
+            ><button id="retry-history" hidden data-i18n="retryHistory">
+              Retry history
+            </button>
           </div>
-          <p class="history-note">
-            同一坐标的分类样本 · 非地块面积<br />点击记录可切换到对应年份。
+          <p class="history-note" data-i18n="historyNote">
+            Samples at one coordinate · not field acreage. Select a record to
+            change the map year.
           </p>
           <div id="history-rows"></div>
         </section>
-        <section class="timeline" aria-label="历史时间轴">
+        <section
+          class="timeline"
+          aria-label="Historical timeline"
+          data-i18n-aria="timeline"
+        >
           <div class="timeline-top">
             <div>
-              <label for="year-select">作物年份</label
+              <label for="year-select" data-i18n="year">Crop year</label
               ><select id="year-select" disabled></select>
             </div>
             <div class="year-controls">
-              <button id="previous-year" aria-label="上一年" disabled>←</button
-              ><button id="next-year" aria-label="下一年" disabled>→</button>
+              <button
+                id="previous-year"
+                aria-label="Previous year"
+                data-i18n-aria="previousYear"
+                disabled
+              >
+                ←</button
+              ><button
+                id="next-year"
+                aria-label="Next year"
+                data-i18n-aria="nextYear"
+                disabled
+              >
+                →
+              </button>
             </div>
             <label class="early-years"
-              ><input id="early-years" type="checkbox" /> 显示 2008
-              年以前（部分覆盖）</label
+              ><input id="early-years" type="checkbox" />
+              <span data-i18n="earlyYears"
+                >Before 2008 (partial coverage)</span
+              ></label
             >
           </div>
           <input
@@ -179,7 +277,8 @@
             min="2008"
             max="2025"
             value="2025"
-            aria-label="拖动选择作物年份"
+            aria-label="Select crop year"
+            data-i18n-aria="yearSlider"
             disabled
           />
           <div class="timeline-ticks" id="timeline-ticks"></div>

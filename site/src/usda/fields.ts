@@ -1,5 +1,6 @@
 import type { Map, GeoJSONSource } from 'maplibre-gl';
 import { LngLatBounds } from 'maplibre-gl';
+import { t, text, clearText, cropName, number } from './i18n';
 import type { FieldResult } from './types';
 
 const el = <T extends HTMLElement>(id: string) =>
@@ -62,13 +63,18 @@ export function fieldSelection(map: Map, setYear: (year: number) => void) {
     if (!result?.feature) return;
     const p = result.feature.properties;
     const row = p.rows.find((r) => r.year === year);
+    clearText(el('field-description'));
+    text(el('field-status'), 'fieldSelected', {
+      hectares: number(p.hectares),
+      acres: number(p.acres),
+    });
     el('field-description').textContent =
-      `${p.county} · CSB ${p.id}\n边界期：${p.window.start}–${p.window.end}（推算作物边界）\n${row ? `${year} 地块主作物：${row.name}` : `${year} 不在边界记录期内；下方为单点样本。`}`;
+      `${p.county} · CSB ${p.id}\n${t('fieldWindow', p.window)}\n${row ? t('fieldYear', { year, crop: cropName(row.name) }) : t('fieldOutside', { year })}`;
     el('field-rows').replaceChildren(
       ...[...p.rows].reverse().map((r) => {
         const button = document.createElement('button');
         button.className = 'field-row';
-        button.textContent = `${r.year} · ${r.name}`;
+        button.textContent = `${r.year} · ${cropName(r.name)}`;
         button.setAttribute('aria-pressed', String(r.year === year));
         button.onclick = () => setYear(r.year);
         return button;
@@ -79,8 +85,8 @@ export function fieldSelection(map: Map, setYear: (year: number) => void) {
     version++;
     result = null;
     el('field-card').removeAttribute('data-field-id');
-    el('field-status').textContent = '';
-    el('field-description').textContent = '';
+    clearText(el('field-status'));
+    clearText(el('field-description'));
     ['focus-field', 'export-field', 'retry-field', 'field-history'].forEach(
       (id) => (el(id).hidden = true),
     );
@@ -94,7 +100,7 @@ export function fieldSelection(map: Map, setYear: (year: number) => void) {
   ) {
     clear();
     const id = version;
-    el('field-status').textContent = '正在查找整块边界…';
+    text(el('field-status'), 'fieldLoading');
     try {
       const response = await fetch(`/api/field?${query}`, { signal });
       if (!response.ok) throw Error('Field request failed');
@@ -104,8 +110,7 @@ export function fieldSelection(map: Map, setYear: (year: number) => void) {
       if (data.feature) {
         const p = data.feature.properties;
         el('field-card').dataset.fieldId = p.id;
-        el('field-status').textContent =
-          `已选中整块 · ${p.hectares.toFixed(2)} 公顷 / ${p.acres.toFixed(2)} 英亩`;
+
         ['focus-field', 'export-field', 'field-history'].forEach(
           (id) => (el(id).hidden = false),
         );
@@ -113,17 +118,16 @@ export function fieldSelection(map: Map, setYear: (year: number) => void) {
         draw();
         focus();
       } else {
-        el('field-status').textContent =
-          data.status === 'unsupported'
-            ? '该地区暂无 CSB 地块边界'
-            : '此处未匹配到地块边界';
-        el('field-description').textContent =
-          '保留点击位置的历史样本。可尝试点击附近农田内部。';
+        text(
+          el('field-status'),
+          data.status === 'unsupported' ? 'fieldUnsupported' : 'fieldMissing',
+        );
+        text(el('field-description'), 'fieldFallback');
       }
     } catch {
       if (id !== version || signal.aborted) return;
-      el('field-status').textContent = '地块边界暂时无法读取';
-      el('field-description').textContent = '坐标历史可独立查询，请重试边界。';
+      text(el('field-status'), 'fieldError');
+      text(el('field-description'), 'fieldRetryNote');
       el('retry-field').hidden = false;
     }
   }

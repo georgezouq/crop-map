@@ -1,0 +1,582 @@
+{
+  "Alfalfa": {
+    "es": "Alfalfa",
+    "zh-CN": "苜蓿"
+  },
+  "Almonds": {
+    "es": "Almendras",
+    "zh-CN": "扁桃仁"
+  },
+  "Apples": {
+    "es": "Manzanas",
+    "zh-CN": "苹果"
+  },
+  "Apricots": {
+    "es": "Albaricoques",
+    "zh-CN": "杏"
+  },
+  "Aquaculture": {
+    "es": "Acuicultura",
+    "zh-CN": "水产养殖"
+  },
+  "Asparagus": {
+    "es": "Espárragos",
+    "zh-CN": "芦笋"
+  },
+  "Avocados": {
+    "es": "Aguacates",
+    "zh-CN": "牛油果"
+  },
+  "Banana (HI only)": {
+    "es": "Banana (solo Hawái)",
+    "zh-CN": "香蕉（仅夏威夷）"
+  },
+  "Barley": {
+    "es": "Cebada",
+    "zh-CN": "大麦"
+  },
+  "Barren": {
+    "es": "Suelo desnudo",
+    "zh-CN": "裸地"
+  },
+  "Blueberries": {
+    "es": "Arándanos azules",
+    "zh-CN": "蓝莓"
+  },
+  "Broccoli": {
+    "es": "Brócoli",
+    "zh-CN": "西兰花"
+  },
+  "Buckwheat": {
+    "es": "Alforfón",
+    "zh-CN": "荞麦"
+  },
+  "Cabbage": {
+    "es": "Col",
+    "zh-CN": "卷心菜"
+  },
+  "Camelina": {
+    "es": "Camelina",
+    "zh-CN": "亚麻荠"
+  },
+  "Caneberries": {
+    "es": "Frutos de zarza y frambuesa",
+    "zh-CN": "树莓与黑莓类"
+  },
+  "Canola": {
+    "es": "Colza canola",
+    "zh-CN": "低芥酸油菜"
+  },
+  "Cantaloupes": {
+    "es": "Melones cantalupos",
+    "zh-CN": "网纹甜瓜"
+  },
+  "Carrots": {
+    "es": "Zanahorias",
+    "zh-CN": "胡萝卜"
+  },
+  "Cauliflower": {
+    "es": "Coliflor",
+    "zh-CN": "花椰菜"
+  },
+  "Celery": {
+    "es": "Apio",
+    "zh-CN": "芹菜"
+  },
+  "Cherries": {
+    "es": "Cerezas",
+    "zh-CN": "樱桃"
+  },
+  "Chick Peas": {
+    "es": "Garbanzos",
+    "zh-CN": "鹰嘴豆"
+  },
+  "Christmas Trees": {
+    "es": "Árboles de Navidad",
+    "zh-CN": "圣诞树"
+  },
+  "Citrus": {
+    "es": "Cítricos",
+    "zh-CN": "柑橘类"
+  },
+  "Clouds/No Data": {
+    "es": "Nubes / sin datos",
+    "zh-CN": "云层 / 无数据"
+  },
+  "Clover/Wildflowers": {
+    "es": "Trébol y flores silvestres",
+    "zh-CN": "三叶草与野花"
+  },
+  "Coconut (HI only)": {
+    "es": "Coco (solo Hawái)",
+    "zh-CN": "椰子（仅夏威夷）"
+  },
+  "Coffee (HI only)": {
+    "es": "Café (solo Hawái)",
+    "zh-CN": "咖啡（仅夏威夷）"
+  },
+  "Commercial Forest (HI only)": {
+    "es": "Bosque comercial (solo Hawái)",
+    "zh-CN": "商业林地（仅夏威夷）"
+  },
+  "Corn": {
+    "es": "Maíz",
+    "zh-CN": "玉米"
+  },
+  "Cotton": {
+    "es": "Algodón",
+    "zh-CN": "棉花"
+  },
+  "Cranberries": {
+    "es": "Arándanos rojos",
+    "zh-CN": "蔓越莓"
+  },
+  "Cucumbers": {
+    "es": "Pepinos",
+    "zh-CN": "黄瓜"
+  },
+  "Dbl Crop Barley/Corn": {
+    "es": "Doble cultivo: cebada / maíz",
+    "zh-CN": "复种：大麦 / 玉米"
+  },
+  "Dbl Crop Barley/Sorghum": {
+    "es": "Doble cultivo: cebada / sorgo",
+    "zh-CN": "复种：大麦 / 高粱"
+  },
+  "Dbl Crop Barley/Soybeans": {
+    "es": "Doble cultivo: cebada / soja",
+    "zh-CN": "复种：大麦 / 大豆"
+  },
+  "Dbl Crop Corn/Soybeans": {
+    "es": "Doble cultivo: maíz / soja",
+    "zh-CN": "复种：玉米 / 大豆"
+  },
+  "Dbl Crop Durum Wht/Sorghum": {
+    "es": "Doble cultivo: trigo duro / sorgo",
+    "zh-CN": "复种：硬粒小麦 / 高粱"
+  },
+  "Dbl Crop Lettuce/Barley": {
+    "es": "Doble cultivo: lechuga / cebada",
+    "zh-CN": "复种：生菜 / 大麦"
+  },
+  "Dbl Crop Lettuce/Cantaloupe": {
+    "es": "Doble cultivo: lechuga / melones cantalupos",
+    "zh-CN": "复种：生菜 / 网纹甜瓜"
+  },
+  "Dbl Crop Lettuce/Cotton": {
+    "es": "Doble cultivo: lechuga / algodón",
+    "zh-CN": "复种：生菜 / 棉花"
+  },
+  "Dbl Crop Lettuce/Durum Wht": {
+    "es": "Doble cultivo: lechuga / trigo duro",
+    "zh-CN": "复种：生菜 / 硬粒小麦"
+  },
+  "Dbl Crop Oats/Corn": {
+    "es": "Doble cultivo: avena / maíz",
+    "zh-CN": "复种：燕麦 / 玉米"
+  },
+  "Dbl Crop Soybeans/Cotton": {
+    "es": "Doble cultivo: soja / algodón",
+    "zh-CN": "复种：大豆 / 棉花"
+  },
+  "Dbl Crop Soybeans/Oats": {
+    "es": "Doble cultivo: soja / avena",
+    "zh-CN": "复种：大豆 / 燕麦"
+  },
+  "Dbl Crop Triticale/Corn": {
+    "es": "Doble cultivo: triticale / maíz",
+    "zh-CN": "复种：小黑麦 / 玉米"
+  },
+  "Dbl Crop WinWht/Corn": {
+    "es": "Doble cultivo: trigo de invierno / maíz",
+    "zh-CN": "复种：冬小麦 / 玉米"
+  },
+  "Dbl Crop WinWht/Cotton": {
+    "es": "Doble cultivo: trigo de invierno / algodón",
+    "zh-CN": "复种：冬小麦 / 棉花"
+  },
+  "Dbl Crop WinWht/Sorghum": {
+    "es": "Doble cultivo: trigo de invierno / sorgo",
+    "zh-CN": "复种：冬小麦 / 高粱"
+  },
+  "Dbl Crop WinWht/Soybeans": {
+    "es": "Doble cultivo: trigo de invierno / soja",
+    "zh-CN": "复种：冬小麦 / 大豆"
+  },
+  "Deciduous Forest": {
+    "es": "Bosque caducifolio",
+    "zh-CN": "落叶林"
+  },
+  "Developed": {
+    "es": "Suelo urbanizado",
+    "zh-CN": "建设用地"
+  },
+  "Developed/High Intensity": {
+    "es": "Urbanizado / alta intensidad",
+    "zh-CN": "高强度建设用地"
+  },
+  "Developed/Low Intensity": {
+    "es": "Urbanizado / baja intensidad",
+    "zh-CN": "低强度建设用地"
+  },
+  "Developed/Med Intensity": {
+    "es": "Urbanizado / intensidad media",
+    "zh-CN": "中强度建设用地"
+  },
+  "Developed/Open Space": {
+    "es": "Urbanizado / espacios abiertos",
+    "zh-CN": "建设用地 / 开放空间"
+  },
+  "Dracaena (HI only)": {
+    "es": "Drácena (solo Hawái)",
+    "zh-CN": "龙血树（仅夏威夷）"
+  },
+  "Dry Beans": {
+    "es": "Judías secas",
+    "zh-CN": "干豆"
+  },
+  "Durum Wheat": {
+    "es": "Trigo duro",
+    "zh-CN": "硬粒小麦"
+  },
+  "Eggplants": {
+    "es": "Berenjenas",
+    "zh-CN": "茄子"
+  },
+  "Evergreen Forest": {
+    "es": "Bosque perennifolio",
+    "zh-CN": "常绿林"
+  },
+  "Fallow/Idle Cropland": {
+    "es": "Tierras de cultivo en barbecho",
+    "zh-CN": "休耕农地"
+  },
+  "Flaxseed": {
+    "es": "Linaza",
+    "zh-CN": "亚麻籽"
+  },
+  "Forest": {
+    "es": "Bosque",
+    "zh-CN": "森林"
+  },
+  "Garlic": {
+    "es": "Ajo",
+    "zh-CN": "大蒜"
+  },
+  "Gourds": {
+    "es": "Calabazas de botella",
+    "zh-CN": "葫芦"
+  },
+  "Grapes": {
+    "es": "Uvas",
+    "zh-CN": "葡萄"
+  },
+  "Grassland/Pasture": {
+    "es": "Praderas y pastizales",
+    "zh-CN": "草地 / 牧场"
+  },
+  "Greens": {
+    "es": "Hortalizas de hoja",
+    "zh-CN": "绿叶蔬菜"
+  },
+  "Herbaceous Wetlands": {
+    "es": "Humedales herbáceos",
+    "zh-CN": "草本湿地"
+  },
+  "Herbs": {
+    "es": "Hierbas aromáticas",
+    "zh-CN": "香草"
+  },
+  "Honeydew Melons": {
+    "es": "Melones verdes",
+    "zh-CN": "蜜露甜瓜"
+  },
+  "Hops": {
+    "es": "Lúpulo",
+    "zh-CN": "啤酒花"
+  },
+  "Lentils": {
+    "es": "Lentejas",
+    "zh-CN": "扁豆"
+  },
+  "Lettuce": {
+    "es": "Lechuga",
+    "zh-CN": "生菜"
+  },
+  "Macadamia (HI only)": {
+    "es": "Macadamia (solo Hawái)",
+    "zh-CN": "夏威夷果（仅夏威夷）"
+  },
+  "Millet": {
+    "es": "Mijo",
+    "zh-CN": "黍稷"
+  },
+  "Mint": {
+    "es": "Menta",
+    "zh-CN": "薄荷"
+  },
+  "Misc Vegs & Fruits": {
+    "es": "Otras frutas y hortalizas",
+    "zh-CN": "其他蔬菜与水果"
+  },
+  "Mixed Forest": {
+    "es": "Bosque mixto",
+    "zh-CN": "混交林"
+  },
+  "Mustard": {
+    "es": "Mostaza",
+    "zh-CN": "芥菜"
+  },
+  "Nectarines": {
+    "es": "Nectarinas",
+    "zh-CN": "油桃"
+  },
+  "Nonag/Undefined": {
+    "es": "No agrícola / sin definir",
+    "zh-CN": "非农业 / 未定义"
+  },
+  "Noni Fruit (HI only)": {
+    "es": "Noni (solo Hawái)",
+    "zh-CN": "诺丽果（仅夏威夷）"
+  },
+  "Oats": {
+    "es": "Avena",
+    "zh-CN": "燕麦"
+  },
+  "Olives": {
+    "es": "Aceitunas",
+    "zh-CN": "橄榄"
+  },
+  "Onions": {
+    "es": "Cebollas",
+    "zh-CN": "洋葱"
+  },
+  "Open Water": {
+    "es": "Aguas abiertas",
+    "zh-CN": "开阔水面"
+  },
+  "Oranges": {
+    "es": "Naranjas",
+    "zh-CN": "橙"
+  },
+  "Other Crops": {
+    "es": "Otros cultivos",
+    "zh-CN": "其他作物"
+  },
+  "Other Crops (HI only)": {
+    "es": "Otros cultivos (solo Hawái)",
+    "zh-CN": "其他作物（仅夏威夷）"
+  },
+  "Other Exotic Fruit (HI only)": {
+    "es": "Otras frutas exóticas (solo Hawái)",
+    "zh-CN": "其他热带水果（仅夏威夷）"
+  },
+  "Other Hay/Non Alfalfa": {
+    "es": "Otros forrajes, excepto alfalfa",
+    "zh-CN": "其他干草（非苜蓿）"
+  },
+  "Other Small Grains": {
+    "es": "Otros cereales de grano pequeño",
+    "zh-CN": "其他小粒谷物"
+  },
+  "Other Tree Crops": {
+    "es": "Otros cultivos arbóreos",
+    "zh-CN": "其他树木作物"
+  },
+  "Papaya (HI only)": {
+    "es": "Papaya (solo Hawái)",
+    "zh-CN": "木瓜（仅夏威夷）"
+  },
+  "Peaches": {
+    "es": "Melocotones",
+    "zh-CN": "桃"
+  },
+  "Peanuts": {
+    "es": "Cacahuetes",
+    "zh-CN": "花生"
+  },
+  "Pears": {
+    "es": "Peras",
+    "zh-CN": "梨"
+  },
+  "Peas": {
+    "es": "Guisantes",
+    "zh-CN": "豌豆"
+  },
+  "Pecans": {
+    "es": "Nueces pecanas",
+    "zh-CN": "碧根果"
+  },
+  "Peppers": {
+    "es": "Pimientos",
+    "zh-CN": "辣椒"
+  },
+  "Perennial Ice/Snow": {
+    "es": "Hielo y nieve permanentes",
+    "zh-CN": "常年冰雪"
+  },
+  "Pineapple (HI only)": {
+    "es": "Piña (solo Hawái)",
+    "zh-CN": "菠萝（仅夏威夷）"
+  },
+  "Pistachios": {
+    "es": "Pistachos",
+    "zh-CN": "开心果"
+  },
+  "Plumeria (HI only)": {
+    "es": "Plumeria (solo Hawái)",
+    "zh-CN": "鸡蛋花（仅夏威夷）"
+  },
+  "Plums": {
+    "es": "Ciruelas",
+    "zh-CN": "李子"
+  },
+  "Pomegranates": {
+    "es": "Granadas",
+    "zh-CN": "石榴"
+  },
+  "Pop or Orn Corn": {
+    "es": "Maíz palomero u ornamental",
+    "zh-CN": "爆米花或观赏玉米"
+  },
+  "Potatoes": {
+    "es": "Patatas",
+    "zh-CN": "马铃薯"
+  },
+  "Prunes": {
+    "es": "Ciruelas pasas",
+    "zh-CN": "西梅"
+  },
+  "Pumpkins": {
+    "es": "Calabazas",
+    "zh-CN": "南瓜"
+  },
+  "Radishes": {
+    "es": "Rábanos",
+    "zh-CN": "萝卜"
+  },
+  "Rape Seed": {
+    "es": "Colza",
+    "zh-CN": "油菜籽"
+  },
+  "Rice": {
+    "es": "Arroz",
+    "zh-CN": "水稻"
+  },
+  "Rye": {
+    "es": "Centeno",
+    "zh-CN": "黑麦"
+  },
+  "Safflower": {
+    "es": "Cártamo",
+    "zh-CN": "红花"
+  },
+  "Shrubland": {
+    "es": "Matorral",
+    "zh-CN": "灌木地"
+  },
+  "Sod/Grass Seed": {
+    "es": "Césped y semillas de pasto",
+    "zh-CN": "草皮与草籽"
+  },
+  "Sorghum": {
+    "es": "Sorgo",
+    "zh-CN": "高粱"
+  },
+  "Soybeans": {
+    "es": "Soja",
+    "zh-CN": "大豆"
+  },
+  "Speltz": {
+    "es": "Espelta",
+    "zh-CN": "斯佩尔特小麦"
+  },
+  "Spring Wheat": {
+    "es": "Trigo de primavera",
+    "zh-CN": "春小麦"
+  },
+  "Squash": {
+    "es": "Calabazas y calabacines",
+    "zh-CN": "南瓜与西葫芦"
+  },
+  "Strawberries": {
+    "es": "Fresas",
+    "zh-CN": "草莓"
+  },
+  "Sugarbeets": {
+    "es": "Remolacha azucarera",
+    "zh-CN": "甜菜"
+  },
+  "Sugarcane": {
+    "es": "Caña de azúcar",
+    "zh-CN": "甘蔗"
+  },
+  "Sunflower": {
+    "es": "Girasol",
+    "zh-CN": "向日葵"
+  },
+  "Sweet Basil (HI only)": {
+    "es": "Albahaca (solo Hawái)",
+    "zh-CN": "甜罗勒（仅夏威夷）"
+  },
+  "Sweet Corn": {
+    "es": "Maíz dulce",
+    "zh-CN": "甜玉米"
+  },
+  "Sweet Potatoes": {
+    "es": "Batatas",
+    "zh-CN": "甘薯"
+  },
+  "Switchgrass": {
+    "es": "Pasto varilla",
+    "zh-CN": "柳枝稷"
+  },
+  "Taro (HI only)": {
+    "es": "Taro (solo Hawái)",
+    "zh-CN": "芋头（仅夏威夷）"
+  },
+  "Tobacco": {
+    "es": "Tabaco",
+    "zh-CN": "烟草"
+  },
+  "Tomatoes": {
+    "es": "Tomates",
+    "zh-CN": "番茄"
+  },
+  "Triticale": {
+    "es": "Triticale",
+    "zh-CN": "小黑麦"
+  },
+  "Turnips": {
+    "es": "Nabos",
+    "zh-CN": "芜菁"
+  },
+  "Vetch": {
+    "es": "Veza",
+    "zh-CN": "野豌豆"
+  },
+  "Walnuts": {
+    "es": "Nueces",
+    "zh-CN": "核桃"
+  },
+  "Water": {
+    "es": "Agua",
+    "zh-CN": "水域"
+  },
+  "Watermelons": {
+    "es": "Sandías",
+    "zh-CN": "西瓜"
+  },
+  "Wetlands": {
+    "es": "Humedales",
+    "zh-CN": "湿地"
+  },
+  "Winter Wheat": {
+    "es": "Trigo de invierno",
+    "zh-CN": "冬小麦"
+  },
+  "Woody Wetlands": {
+    "es": "Humedales arbolados",
+    "zh-CN": "木本湿地"
+  }
+}

@@ -11,6 +11,7 @@ const browser = await chromium.launch({
   channel: process.env.PLAYWRIGHT_CHANNEL || undefined,
 });
 const page = await browser.newPage({
+  locale: 'zh-CN',
   viewport: { width: 1440, height: 960 },
   deviceScaleFactor: 1,
   reducedMotion: 'reduce',
@@ -69,13 +70,11 @@ try {
   assert.ok(field.geometry.coordinates[0].length > 20);
   assert.equal(field.properties.rows.length, 8);
   await page.locator('#field-history summary').click();
-  await page
-    .getByRole('button', { name: '2021 · Soybeans', exact: true })
-    .click();
+  await page.getByRole('button', { name: '2021 · 大豆', exact: true }).click();
   assert.equal(await page.locator('#year-select').inputValue(), '2021');
   assert.ok(
     (await page.locator('#field-description').innerText()).includes(
-      '2021 地块主作物：Soybeans',
+      '2021 地块主作物：大豆',
     ),
   );
   await page.locator('#field-history summary').click();
@@ -87,9 +86,7 @@ try {
     { timeout: 60000 },
   );
   assert.ok(
-    (await page.locator('.history-row.selected').innerText()).includes(
-      'Soybeans',
-    ),
+    (await page.locator('.history-row.selected').innerText()).includes('大豆'),
   );
   await page.screenshot({
     path: output + '/desktop-history.jpg',
