@@ -1,17 +1,23 @@
 {
-  "name": "ca-crop-map-site",
+  "name": "us-crop-atlas",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node ../server/dev.mjs",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "api": "node ../server/index.mjs",
+    "start": "node ../server/index.mjs",
+    "import:usda": "node ../pipeline/import-usda.mjs",
+    "test": "node --test ../tests/usda/*.test.mjs",
+    "dev:site": "vite --port 5175 --strictPort",
+    "test:browser": "node test-browser.mjs"
   },
   "dependencies": {
     "@fontsource-variable/nunito": "^5.3.0",
     "@protomaps/basemaps": "^5.7.2",
-    "maplibre-gl": "^5.24.0",
+    "maplibre-gl": "^6.14.0",
     "pmtiles": "^4.5.0"
   },
   "devDependencies": {
@@ -19,5 +25,8 @@
     "typescript": "^7.0.2",
     "vite": "^8.3.4"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12"
+  }
 }
