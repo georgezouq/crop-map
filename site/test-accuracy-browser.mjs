@@ -42,7 +42,11 @@ try {
   page.on('response', (r) => {
     if (r.url().includes('/World_Imagery/') && r.ok()) successfulImagery++;
   });
+  assert.equal(await page.locator('#show-crops').isChecked(), true);
+  assert.equal(await page.locator('#opacity').inputValue(), '80');
   await page.locator('#basemap').selectOption('imagery');
+  assert.equal(await page.locator('#show-crops').isChecked(), true);
+  assert.equal(await page.locator('#opacity').inputValue(), '50');
   await page.locator('#show-crops').uncheck();
   // Zoom around the selected coordinate to inspect the road/field edge.
   for (let i = 0; i < 6; i++)
@@ -59,6 +63,13 @@ try {
   await page.screenshot({
     path: new URL('road-overlay-desktop.jpg', output).pathname,
   });
+  await page.locator('#opacity').focus();
+  await page.keyboard.press('Home');
+  for (let i = 0; i < 40; i++) await page.keyboard.press('ArrowRight');
+  await page.locator('#basemap').selectOption('map');
+  assert.equal(await page.locator('#opacity').inputValue(), '80');
+  await page.locator('#basemap').selectOption('imagery');
+  assert.equal(await page.locator('#opacity').inputValue(), '40');
   await page.locator('#show-crops').uncheck();
   await page.locator('#year-select').selectOption('2024');
   await page.locator('#language').selectOption('es');
@@ -73,6 +84,7 @@ try {
     () => !document.querySelector('#basemap').disabled,
   );
   assert.equal(await page.locator('#basemap').inputValue(), 'imagery');
+  assert.equal(await page.locator('#opacity').inputValue(), '40');
   assert.equal(await page.locator('#show-crops').isChecked(), false);
   await page.locator('#language').selectOption('en');
   await page.setViewportSize({ width: 390, height: 844 });
@@ -117,6 +129,8 @@ try {
     successfulImagery,
     checks: [
       'source classification preserved',
+      'overlay defaults on with 50% imagery opacity and 80% map opacity',
+      'per-basemap custom opacity survives switching, language, year and reload',
       'unverified raster and field-edge warning',
       'imagery loads and overlay visibly toggles',
       'language/year/URL restore preserve comparison',

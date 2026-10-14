@@ -75,9 +75,9 @@
     "zh-CN": "常见作物"
   },
   "opacity": {
-    "en": "Layer opacity",
-    "es": "Opacidad de la capa",
-    "zh-CN": "图层透明度"
+    "en": "Crop color opacity",
+    "es": "Opacidad del color de cultivos",
+    "zh-CN": "作物颜色不透明度"
   },
   "startHere": {
     "en": "Start exploring",

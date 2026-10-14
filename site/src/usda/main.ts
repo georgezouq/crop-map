@@ -34,6 +34,17 @@ const basemap = el<HTMLSelectElement>('basemap');
 const showCrops = el<HTMLInputElement>('show-crops');
 basemap.value = params.get('basemap') === 'imagery' ? 'imagery' : 'map';
 showCrops.checked = params.get('overlay') !== '0';
+const opacity = el<HTMLInputElement>('opacity');
+const defaultOpacity = { map: 80, imagery: 50 };
+const opacityValues = { ...defaultOpacity };
+const basemapKey = () => (basemap.value === 'imagery' ? 'imagery' : 'map');
+const savedOpacity = Number(params.get('opacity'));
+if (params.has('opacity') && Number.isFinite(savedOpacity))
+  opacityValues[basemapKey()] = Math.round(
+    Math.max(0, Math.min(100, savedOpacity)),
+  );
+opacity.value = String(opacityValues[basemapKey()]);
+el('opacity-value').textContent = `${opacity.value}%`;
 let catalog: Catalog;
 let region: Region = params.get('region') === 'hawaii' ? 'hawaii' : 'conus';
 let year = Number(params.get('year')) || 2025;
@@ -153,6 +164,8 @@ function saveUrl() {
   });
   if (basemap.value === 'imagery') p.set('basemap', 'imagery');
   if (!showCrops.checked) p.set('overlay', '0');
+  if (opacityValues[basemapKey()] !== defaultOpacity[basemapKey()])
+    p.set('opacity', String(opacityValues[basemapKey()]));
   if (selectedCode !== null) p.set('crop', String(selectedCode));
   if (early.checked) p.set('early', '1');
   if (selectedPoint) {
@@ -503,6 +516,7 @@ function updateBasemap() {
       imagery ? 'visible' : 'none',
     );
   el('imagery-note').hidden = !imagery;
+  applyOpacity();
   saveUrl();
 }
 basemap.onchange = updateBasemap;
@@ -515,11 +529,17 @@ showCrops.onchange = () => {
     );
   saveUrl();
 };
-el<HTMLInputElement>('opacity').oninput = (event) => {
-  const value = Number((event.target as HTMLInputElement).value);
+function applyOpacity() {
+  const value = opacityValues[basemapKey()];
+  opacity.value = String(value);
   el('opacity-value').textContent = `${value}%`;
   if (map.getLayer('cdl'))
     map.setPaintProperty('cdl', 'raster-opacity', value / 100);
+}
+opacity.oninput = () => {
+  opacityValues[basemapKey()] = Number(opacity.value);
+  applyOpacity();
+  saveUrl();
 };
 document
   .querySelectorAll<HTMLButtonElement>('.destinations button')
