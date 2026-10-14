@@ -515,7 +515,6 @@ function updateBasemap() {
       'visibility',
       imagery ? 'visible' : 'none',
     );
-  el('imagery-note').hidden = !imagery;
   applyOpacity();
   saveUrl();
 }

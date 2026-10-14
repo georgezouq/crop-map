@@ -489,11 +489,6 @@
     "es": "Capa de cultivos",
     "zh-CN": "作物图层"
   },
-  "imageryNote": {
-    "en": "Reference imagery may be from a different date than the selected crop year.",
-    "es": "Las imágenes de referencia pueden ser de una fecha distinta al año del cultivo.",
-    "zh-CN": "参考影像拍摄日期可能与所选作物年份不同。"
-  },
   "sampleResolution": {
     "en": "{resolution} m pixel",
     "es": "Píxel de {resolution} m",

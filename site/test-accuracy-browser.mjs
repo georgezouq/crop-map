@@ -53,6 +53,10 @@ try {
     await page.getByRole('button', { name: '放大', exact: true }).click();
   await page.waitForTimeout(8000);
   assert.ok(successfulImagery > 0, 'Esri imagery actually loaded');
+  await page
+    .locator('#map-status[data-i18n="mapReady"]')
+    .waitFor({ state: 'attached' });
+  assert.equal(await page.locator('#map-status').isVisible(), false);
   await page.screenshot({
     path: new URL('road-imagery-desktop.jpg', output).pathname,
   });
@@ -74,10 +78,7 @@ try {
   await page.locator('#year-select').selectOption('2024');
   await page.locator('#language').selectOption('es');
   assert.equal(await page.locator('#show-crops').isChecked(), false);
-  assert.match(
-    await page.locator('#imagery-note').innerText(),
-    /fecha distinta/,
-  );
+  assert.equal(await page.locator('#imagery-note').count(), 0);
   assert.equal(new URL(page.url()).searchParams.get('overlay'), '0');
   await page.reload();
   await page.waitForFunction(
@@ -114,6 +115,7 @@ try {
     document.querySelector('#map-status').textContent.includes('显示不完整'),
   );
   await page.waitForSelector('.history-row');
+  assert.equal(await page.locator('#map-status').isVisible(), true);
   assert.match(await page.locator('.history-row').first().innerText(), /蓝莓/);
   assert.deepEqual(errors, []);
   const result = {
