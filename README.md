@@ -30,7 +30,7 @@ The interface is localized, including crop names, coverage notes, errors, and ac
 Requirements: **Node.js 22.12+**, npm, and an internet connection. No USDA API key is required for the connected services.
 
 ```sh
-git clone https://github.com/georgezouq/crop-map.git
+git clone <repository-url> crop-map
 cd crop-map/site
 npm ci
 npm run build
