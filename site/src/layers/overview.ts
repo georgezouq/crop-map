@@ -148,11 +148,12 @@ export function addOverviewLayers(map: MapLibreMap, crops: CropIndex): OverviewL
   for (const spec of buildHighlight(crops)) map.addLayer(spec, FIELDS_BEFORE_LAYER_ID);
 
   const transition = fade(VEIL_FADE_MS);
-  for (const prop of ['raster-saturation-transition', 'raster-brightness-min-transition']) {
+  for (const prop of ['raster-saturation-transition', 'raster-brightness-min-transition'] as const) {
     map.setPaintProperty(OCEAN_GRADIENT_LAYER_ID, prop, transition);
   }
-  for (const prop of Object.keys(HILLSHADE_NEUTRAL)) map.setPaintProperty(HILLSHADE_LAYER_ID, `${prop}-transition`, transition);
-  const hillshadeBase = Object.fromEntries(Object.keys(HILLSHADE_NEUTRAL).map((prop) => [prop, map.getPaintProperty(HILLSHADE_LAYER_ID, prop)]));
+  const hillshadeKeys = Object.keys(HILLSHADE_NEUTRAL) as (keyof typeof HILLSHADE_NEUTRAL)[];
+  for (const prop of hillshadeKeys) map.setPaintProperty(HILLSHADE_LAYER_ID, `${prop}-transition`, transition);
+  const hillshadeBase = Object.fromEntries(hillshadeKeys.map((prop) => [prop, map.getPaintProperty(HILLSHADE_LAYER_ID, prop)]));
 
   let clearTimer: number | undefined;
 
@@ -161,8 +162,8 @@ export function addOverviewLayers(map: MapLibreMap, crops: CropIndex): OverviewL
     map.setPaintProperty(DIM_VEIL_LAYER_ID, 'background-opacity', on ? VEIL_OPACITY : 0);
     map.setPaintProperty(OCEAN_GRADIENT_LAYER_ID, 'raster-saturation', on ? OCEAN_DIM.saturation : 0);
     map.setPaintProperty(OCEAN_GRADIENT_LAYER_ID, 'raster-brightness-min', on ? OCEAN_DIM.brightnessMin : 0);
-    for (const [prop, neutral] of Object.entries(HILLSHADE_NEUTRAL)) {
-      map.setPaintProperty(HILLSHADE_LAYER_ID, prop, on ? neutral : hillshadeBase[prop]);
+    for (const prop of hillshadeKeys) {
+      map.setPaintProperty(HILLSHADE_LAYER_ID, prop, on ? HILLSHADE_NEUTRAL[prop] : hillshadeBase[prop]);
     }
   };
 

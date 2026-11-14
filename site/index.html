@@ -2,21 +2,309 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#bfe6ff" />
-    <meta name="description" content="What's growing here? An interactive map of what California grows." />
-    <title>What's growing here? California crop map</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B1%3C/text%3E%3C/svg%3E" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#f7f8f2" />
+    <meta
+      name="description"
+      content="Explore U.S. crop maps, select fields and trace USDA crop history across years."
+    />
+    <title>US Crop Atlas · Explore U.S. agriculture</title>
+    <link rel="icon" href="/icons/corn.webp" />
   </head>
   <body>
-    <div id="app">
-      <div id="map" aria-label="Map of California crops"></div>
-      <div id="boot" aria-hidden="true"><i class="boot-state"></i><i class="boot-pill"></i><i class="boot-controls"></i></div>
-      <div class="vignette" aria-hidden="true"></div>
-      <div id="legend-slot"></div>
-      <div id="search-slot"></div>
-      <div id="popup-root"></div>
+    <div id="atlas">
+      <header class="topbar">
+        <a class="brand" href="/"
+          ><img src="/icons/corn.webp" alt="" /><span
+            >US Crop Atlas<small data-i18n="subtitle"
+              >U.S. agriculture, mapped</small
+            ></span
+          ></a
+        ><span class="top-caption" data-i18n="tagline"
+          >Every field has a growing history.</span
+        ><a
+          class="source-link"
+          href="https://www.nass.usda.gov/Research_and_Science/Cropland/SARS1a.php"
+          target="_blank"
+          rel="noreferrer"
+          data-i18n="source"
+          >USDA NASS data ↗</a
+        >
+        <div class="language-control">
+          <label for="language" class="sr-only" data-i18n="language"
+            >Language</label
+          ><select id="language">
+            <option value="en" lang="en">English</option>
+            <option value="es" lang="es">Español</option>
+            <option value="zh-CN" lang="zh-CN">简体中文</option>
+          </select>
+        </div>
+      </header>
+      <aside class="sidebar" aria-label="Map filters" data-i18n-aria="filters">
+        <details id="filters" open>
+          <summary>
+            <b data-i18n="explore">Explore crops</b>
+            <span data-i18n="filterNotes">Filters &amp; data notes</span>
+          </summary>
+          <div class="filter-body">
+            <p class="eyebrow" data-i18n="eyebrow">WHAT'S GROWING HERE?</p>
+            <h1 data-i18n="headline">From a nation, to a single field.</h1>
+            <p class="intro" data-i18n="intro">
+              Choose a place and year. Click a field to see its boundary, area
+              and crop history.
+            </p>
+            <label for="place" data-i18n="place">Explore a region</label
+            ><select id="place" disabled></select
+            ><label for="crop" data-i18n="crop">Crop / land cover</label
+            ><select id="crop" disabled>
+              <option value="" data-i18n="allCrops">
+                All crops & land cover
+              </option>
+            </select>
+            <div
+              class="quick-crops"
+              id="quick-crops"
+              aria-label="Common crops"
+              data-i18n-aria="favorites"
+            ></div>
+            <label for="opacity"
+              ><span data-i18n="opacity">Crop color opacity</span>
+              <output id="opacity-value">80%</output></label
+            ><input id="opacity" type="range" min="0" max="100" value="80" />
+            <div class="section-heading">
+              <h2 data-i18n="startHere">Start exploring</h2>
+              <span data-i18n="realPlaces">Real places</span>
+            </div>
+            <div class="destinations">
+              <button data-place="IA" data-lon="-93.6" data-lat="42.1">
+                <img src="/icons/corn.webp" alt="" /><span
+                  ><b data-i18n="cornBelt">Corn Belt</b
+                  ><small data-i18n="iowa">Iowa</small></span
+                ><span>↗</span>
+              </button>
+              <button data-place="CA" data-lon="-120.1" data-lat="36.6">
+                <img src="/icons/almond.svg" alt="" /><span
+                  ><b data-i18n="centralValley">Central Valley</b
+                  ><small data-i18n="california">California</small></span
+                ><span>↗</span>
+              </button>
+              <button data-place="HI" data-lon="-156.4" data-lat="20.8">
+                <img src="/icons/seedling.webp" alt="" /><span
+                  ><b data-i18n="hawaiianIslands">Hawaiian Islands</b
+                  ><small data-i18n="hawaiiSince"
+                    >Hawaii · since 2023</small
+                  ></span
+                ><span>↗</span>
+              </button>
+            </div>
+            <details class="data-notes">
+              <summary data-i18n="dataNotes">Understand the data</summary>
+              <p data-i18n="noteBoundary">
+                Whole-field selection uses USDA CSB 2015–2022 across the
+                contiguous 48 states. These are inferred crop boundaries, not
+                ownership parcels, and stay fixed when you change the crop year.
+                CDL is satellite-classified land cover, not farm declarations or
+                official acreage statistics.
+              </p>
+              <p data-i18n="noteCoverage">
+                Contiguous 48 states: full coverage since 2008; selected states
+                only in 1997–2007. Hawaii: since 2023. Alaska: not covered by
+                this source.
+              </p>
+              <p data-i18n="noteResolution">
+                Native resolution is 10 m from 2024 and 30 m for 2008–2023 in
+                the contiguous U.S. Consider resolution and classification
+                changes when comparing years.
+              </p>
+              <p data-i18n="noteVintages">
+                These are currently available historical releases, not snapshots
+                of what was known at the time. They do not, by themselves,
+                prevent look-ahead bias in backtests.
+              </p>
+              <p data-i18n="noteCache">
+                Official data is loaded on demand and cached locally for up to 7
+                days. Unvisited tiles require a connection; the cache is not a
+                complete national download.
+              </p>
+              <a
+                id="download-source"
+                href="https://data.nass.usda.gov/Research_and_Science/Cropland/Release/"
+                target="_blank"
+                rel="noreferrer"
+                data-i18n="downloadSource"
+                >Download source data ↗</a
+              >
+            </details>
+            <div
+              class="catalog-note"
+              id="catalog-note"
+              data-i18n="catalogLoading"
+            >
+              Loading the annual catalog…
+            </div>
+          </div>
+        </details>
+      </aside>
+      <main class="map-stage">
+        <div
+          id="map"
+          role="region"
+          aria-label="Interactive U.S. crop map"
+          data-i18n-aria="mapLabel"
+        ></div>
+        <div class="map-badges">
+          <span class="map-badge" id="coverage-badge">USDA CDL</span
+          ><span class="map-badge" id="year-badge">—</span>
+        </div>
+        <div
+          id="map-status"
+          role="status"
+          aria-live="polite"
+          data-i18n="mapLoading"
+        >
+          Connecting to the map…
+        </div>
+        <div class="map-tools">
+          <div class="map-tools-row">
+            <label for="basemap" class="sr-only" data-i18n="basemap"
+              >Basemap</label
+            >
+            <select id="basemap" disabled>
+              <option value="map" data-i18n="basemapMap">Map</option>
+              <option value="imagery" data-i18n="basemapImagery">
+                Imagery
+              </option>
+            </select>
+            <label class="crop-toggle"
+              ><input id="show-crops" type="checkbox" checked disabled /><span
+                data-i18n="showCrops"
+                >Crop overlay</span
+              ></label
+            >
+            <button class="reset-map" id="reset-map" data-i18n="resetMap">
+              Region overview
+            </button>
+          </div>
+        </div>
+        <div id="coverage-warning" role="status" hidden></div>
+        <section
+          class="history-panel"
+          id="history-panel"
+          aria-label="Location history"
+          data-i18n-aria="historyLabel"
+          hidden
+        >
+          <div class="history-header">
+            <div>
+              <span class="eyebrow" data-i18n="historyEyebrow"
+                >A PLACE THROUGH TIME</span
+              >
+              <h2 data-i18n="historyTitle">This land through time</h2>
+            </div>
+            <button
+              id="close-history"
+              aria-label="Close history"
+              data-i18n-aria="closeHistory"
+              data-i18n="close"
+            >
+              Close
+            </button>
+          </div>
+          <p id="coordinates"></p>
+          <div
+            id="field-card"
+            aria-label="Field information"
+            data-i18n-aria="fieldLabel"
+          >
+            <strong id="field-status" role="status" aria-live="polite"></strong>
+            <p id="field-description"></p>
+            <div class="history-actions">
+              <button id="focus-field" hidden data-i18n="focusField">
+                Show whole field
+              </button>
+              <button id="export-field" hidden data-i18n="exportField">
+                Export boundary
+              </button>
+              <button id="retry-field" hidden data-i18n="retryField">
+                Retry boundary
+              </button>
+            </div>
+            <details id="field-history" hidden>
+              <summary data-i18n="fieldHistory">
+                Field majority crops · 2015–2022
+              </summary>
+              <div id="field-rows"></div>
+            </details>
+          </div>
+          <h3 class="point-heading" data-i18n="pointHeading">
+            Annual raster classifications at this point
+          </h3>
+          <div id="history-summary" role="status" aria-live="polite"></div>
+          <div class="history-actions">
+            <button id="export-history" disabled data-i18n="exportCSV">
+              Export CSV</button
+            ><button id="retry-history" hidden data-i18n="retryHistory">
+              Retry history
+            </button>
+          </div>
+          <p class="history-note" data-i18n="historyNote">
+            Pixel classifications are not ground verification. Roads and field
+            edges may contain mixed pixels or classification errors. Select a
+            record to change the year.
+          </p>
+          <div id="history-rows"></div>
+        </section>
+        <section
+          class="timeline"
+          aria-label="Historical timeline"
+          data-i18n-aria="timeline"
+        >
+          <div class="timeline-top">
+            <div>
+              <label for="year-select" data-i18n="year">Crop year</label
+              ><select id="year-select" disabled></select>
+            </div>
+            <div class="year-controls">
+              <button
+                id="previous-year"
+                aria-label="Previous year"
+                data-i18n-aria="previousYear"
+                disabled
+              >
+                ←</button
+              ><button
+                id="next-year"
+                aria-label="Next year"
+                data-i18n-aria="nextYear"
+                disabled
+              >
+                →
+              </button>
+            </div>
+            <label class="early-years"
+              ><input id="early-years" type="checkbox" />
+              <span data-i18n="earlyYears"
+                >Before 2008 (partial coverage)</span
+              ></label
+            >
+          </div>
+          <input
+            id="year-slider"
+            type="range"
+            min="2008"
+            max="2025"
+            value="2025"
+            aria-label="Select crop year"
+            data-i18n-aria="yearSlider"
+            disabled
+          />
+          <div class="timeline-ticks" id="timeline-ticks"></div>
+        </section>
+      </main>
     </div>
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/usda/main.ts"></script>
   </body>
 </html>

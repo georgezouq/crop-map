@@ -11,3 +11,6 @@ site/public/data/*.pmtiles
 test-results/
 playwright-report/
 docs/demo/*.webm
+data/cache/
+
+artifacts/

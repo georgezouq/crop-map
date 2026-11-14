@@ -14,7 +14,7 @@ Spec: `docs/superpowers/specs/2026-10-12-ca-crop-map-design.md`
 
 ## Global Constraints
 
-- Repo root: `/Users/sabhya.chhabria/Desktop/ca-crop-map`. Work only in the paths your task owns.
+- Repo root: the checked-out project directory. Work only in the paths your task owns.
 - Other agents work in parallel in the same repo. Commit ONLY your own paths (`git add <paths>`,
   never `git add -A` / `.`). If `.git/index.lock` exists, wait a few seconds and retry.
 - Python: `uv` project at repo root (`pyproject.toml`), Python 3.12, run via `uv run`.
